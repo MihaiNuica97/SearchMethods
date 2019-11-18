@@ -4,23 +4,28 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/mainLayout.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/node.js"></script>
 </head>
 
 <body>
 <div id="navbar">
 <ul>
     <li><a href="./index.html">Home</a></li>
-    <li><a href="./BFS.html">Breadth First Search</a></li>
-    <li><a href="./DFS.html">Depth First Search</a></li>
-    <li><a href="./IterDeep.html">Iterative Deepening</a></li>
-    <li><a href="./AHeuristic.html">A* Heuristic Search</a></li>
     <li><a href="./About.html">About</a></li>
 </ul>
 </div>
 
 <div id="mainLayout">
-<p>This is the Main Page</p>
+<div id="optionsDiv"><p>Options for Grid config</p></div>
+<div id="outputDiv">
+    <div id="consoleOutputDiv" style="float:left;">
+        <span>Console output</span>
+    </div>
+    <div id="graphOutputDiv"style="float:right;"><span>Visual representation of state</span></div>
 </div>
+</div>
+
+
 
 
 <script src="./js/main.js"></script>
