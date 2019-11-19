@@ -18,6 +18,7 @@ class GraphicsManager{
         // clean up grid
         this.grid.empty();
         let sumblocks = 0
+
         // populate grid with blocks
         for(let i=0;i<this.gridSize;i++){
             for(let j=0;j<this.gridSize;j++){
@@ -29,18 +30,44 @@ class GraphicsManager{
                 block.css("grid-area", (i+1) + " / " + (j+1) + " span 1 / span 1");
                 block.attr("row", i+1);
                 block.attr("col", j+1);
-                console.log(block.css("grid-area"));
-
                 sumblocks++;
             }
         }
         $('#gridBlock'+ (sumblocks - 1)).attr("id", "agentBlock");
         this.agentBlock = $('#agentBlock');
+
+        // populate options with number of movable blocks
+        this.movableBlocks = $('#blocksNoInput').val();
+        let blockOptionsDiv = $('#gridBlocksOptionDiv');
+        blockOptionsDiv.empty();
+
+        let currentLetter = "A";
+        
+        for(let i=0; i<this.movableBlocks;i++){
+            let htmlString = '<div class="blockOption"><span class="blockTitle" title='+currentLetter+'>'+currentLetter+': </span><span>X:</span><input class="blockCoordX" type="number" value = "1" min="1" max="6"><span>Y:</span><input class="blockCoordY" type="number" value = "1" min="1" max="6"></div>';
+            currentLetter = nextCharacter(currentLetter);
+            blockOptionsDiv.append($.parseHTML(htmlString));
+        }
+    }
+    generateBlocks(){
+        $('.gridBlock').each(function(index){
+            $(this).empty();
+            $(this).removeClass("movableBlock");
+        });
+        $('.blockOption').each(function(index){
+            let blockTitle = $(this).find(".blockTitle").attr("title");
+            let blockX = $(this).find(".blockCoordX").val();
+            let blockY = $(this).find(".blockCoordY").val();
+
+            let block = $('[row = '+ (blockX) + '][col = ' + (blockY) + ']');
+
+            block.addClass("movableBlock");
+            block.append("<div>"+blockTitle+"</div>");
+        })
     }
 
 
     // blocks movement
-
     swapBlocks(block1, block2){
         let block1Row = block1.attr("row");
         let block1Col = block1.attr("col");
@@ -78,8 +105,6 @@ class GraphicsManager{
         let subjectRow = parseInt(this.agentBlock.attr("row")) - 1;
         let subjectCol = parseInt(this.agentBlock.attr("col"));
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
-       
-
     }
     moveDown(){
         let subjectRow = parseInt(this.agentBlock.attr("row")) + 1;
@@ -87,7 +112,7 @@ class GraphicsManager{
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
  
     }
-
-
     
+
+
 }

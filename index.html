@@ -17,22 +17,39 @@
 </div>
 
 <div id="mainLayout">
+
     <div id="optionsDiv">
         <div id="gridSizeDiv">
             <span>Grid Size: </span>
-            <input type="number" value="3" id="gridSizeInput">
+            <input type="number" value="4" max="6" id="gridSizeInput">
         </div>
-        <div id="gridBlocksDiv">
-            <span>Number of grid blocks: </span>
-            <input type="number" value="2" id="">
+        <div id="gridBlocksInputDiv">
+            <span>Grid Blocks: </span>
+            <input type="number" value="3" max="6" id="blocksNoInput">
         </div>
-        <button id="generateGridBtn" onClick="graphicsManager.generateGrid()">Generate Grid</button>
+        <div id="gridBlocksOptionDiv"class="hidden">
+                <div class="blockOption">
+                    <span class="blockTitle" title="A">A</span>
+                    <span>X:</span>
+                    <input class="blockCoordX" type="number">
+                    <span>Y:</span>
+                    <input class="blockCoordY" type="number">
+                </div>
+        </div>
+    </div>
+
+
+    <div id="buttonsDiv">
+        <button id="generateGridBtn" onClick="graphicsManager.generateGrid();
+        $('#generateBlocksBtn').removeClass('hidden');
+        $('#gridBlocksOptionDiv').removeClass('hidden');">Generate Grid</button>
+        <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()" class="hidden" >Generate Blocks</button>
         <div id="controlsDiv">
                 <button id="moveLeft" onClick="graphicsManager.moveLeft()">Left</button>
                 <button id="moveRight"onClick="graphicsManager.moveRight()">Right</button>
                 <button id="moveUp"onClick="graphicsManager.moveUp()">Up</button>
                 <button id="moveDown"onClick="graphicsManager.moveDown()">Down</button>
-            </div>
+        </div>
     </div>
 
 

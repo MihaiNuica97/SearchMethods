@@ -1,4 +1,7 @@
 console.log("Hello World");
+function nextCharacter(c) { 
+  return String.fromCharCode(c.charCodeAt(0) + 1); 
+} 
 function Create2DArray(rows) {
     var arr = [];
   
@@ -16,7 +19,6 @@ let graphicsManager = new GraphicsManager();
 graphicsManager.generateGrid();
 
 console.log(graphicsManager);
-
 
 console.log(node);
 console.log(node.state);
