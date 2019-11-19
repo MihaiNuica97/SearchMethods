@@ -3,8 +3,9 @@
 <head>
     <title>Document</title>
     <link rel="stylesheet" href="./css/mainLayout.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/jquery-3.4.1.js"></script>
     <script src="./js/node.js"></script>
+    <script src="./js/graphicsManager.js"></script>
 </head>
 
 <body>
@@ -16,20 +17,39 @@
 </div>
 
 <div id="mainLayout">
-<div id="optionsDiv"><p>Options for Grid config</p></div>
-<div id="outputDiv">
-    <div id="consoleOutputDiv" style="float:left;">
-        <span>Console output</span>
+    <div id="optionsDiv">
+        <div id="gridSizeDiv">
+            <span>Grid Size: </span>
+            <input type="number" value="2" id="gridSizeInput">
+        </div>
+        <div id="gridBlocksDiv">
+            <span>Number of grid blocks: </span>
+            <input type="text" name="" id="">
+        </div>
+        <button id="generateGridBtn" onClick="graphicsManager.generateGrid()">Generate Grid</button>
+        <div id="controlsDiv">
+                <button id="moveLeft">Left</button>
+                <button id="moveRight">Right</button>
+                <button id="moveUp">Up</button>
+                <button id="moveDown">Down</button>
+            </div>
     </div>
-    <div id="graphOutputDiv"style="float:right;">
-        <span>Visual representation of state</span>
+
+
+
+    <div id="outputDiv">
+        <div id="consoleOutputDiv" style="float:left;">
+            <span>Console output</span>
+        </div>
+        <div id="graphOutputDiv"style="float:right;">
+            <div id="gridOuterDiv"></div>
+        </div>
     </div>
 </div>
-</div>
 
 
 
 
-<script src="./js/main.js"></script>
+<script defer src="./js/main.js"></script>
 </body>
 </html>

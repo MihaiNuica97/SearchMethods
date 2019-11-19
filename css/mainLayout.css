@@ -41,8 +41,12 @@
 
 #mainLayout{
     margin-top: 50px;
+    display: inline-block;
+    width: 100%;
 }
-
+#outputDiv{
+    width: 100%;
+}
 
 /***************************** OPTIONS *****************************/
 
@@ -55,7 +59,20 @@
 
 /***************************** GRAPH OUTPUT *****************************/
 
-#graphOutputDiv{
-    
+#gridOuterDiv{
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: auto auto auto;
+    border: 1px solid black;
+
 }
 
+.gridBlock{
+    border: 1px solid black;
+}
+#agentBlock{
+    background-color: gray;
+}
