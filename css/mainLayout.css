@@ -72,7 +72,15 @@
 
 .gridBlock{
     border: 1px solid black;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    -webkit-transition-property: grid-area;
+    transition-property: grid-area;
 }
 #agentBlock{
     background-color: gray;
+}
+
+#gridBlock2{
+    background-color: green;
 }

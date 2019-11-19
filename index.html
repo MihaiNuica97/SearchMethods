@@ -20,18 +20,18 @@
     <div id="optionsDiv">
         <div id="gridSizeDiv">
             <span>Grid Size: </span>
-            <input type="number" value="2" id="gridSizeInput">
+            <input type="number" value="3" id="gridSizeInput">
         </div>
         <div id="gridBlocksDiv">
             <span>Number of grid blocks: </span>
-            <input type="text" name="" id="">
+            <input type="number" value="2" id="">
         </div>
         <button id="generateGridBtn" onClick="graphicsManager.generateGrid()">Generate Grid</button>
         <div id="controlsDiv">
-                <button id="moveLeft">Left</button>
-                <button id="moveRight">Right</button>
-                <button id="moveUp">Up</button>
-                <button id="moveDown">Down</button>
+                <button id="moveLeft" onClick="graphicsManager.moveLeft()">Left</button>
+                <button id="moveRight"onClick="graphicsManager.moveRight()">Right</button>
+                <button id="moveUp"onClick="graphicsManager.moveUp()">Up</button>
+                <button id="moveDown"onClick="graphicsManager.moveDown()">Down</button>
             </div>
     </div>
 

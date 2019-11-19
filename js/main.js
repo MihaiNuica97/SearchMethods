@@ -17,5 +17,6 @@ graphicsManager.generateGrid();
 
 console.log(graphicsManager);
 
+
 console.log(node);
 console.log(node.state);
