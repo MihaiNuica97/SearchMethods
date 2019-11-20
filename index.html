@@ -6,6 +6,7 @@
     <script src="./js/jquery-3.4.1.js"></script>
     <script src="./js/node.js"></script>
     <script src="./js/graphicsManager.js"></script>
+    <script src="./js/searchManager.js"></script>
 </head>
 
 <body>
@@ -27,13 +28,27 @@
             <span>Grid Blocks: </span>
             <input type="number" value="3" max="6" id="blocksNoInput">
         </div>
-        <div id="gridBlocksOptionDiv"class="hidden">
+        <div id="gridBlocksOptionDiv">
                 <div class="blockOption">
-                    <span class="blockTitle" title="A">A</span>
+                    <span class="blockTitle" title="A">A: </span>
                     <span>X:</span>
-                    <input class="blockCoordX" type="number">
+                    <input class="blockCoordX" value="4" type="number">
                     <span>Y:</span>
-                    <input class="blockCoordY" type="number">
+                    <input class="blockCoordY" value="1" type="number">
+                </div>
+                <div class="blockOption">
+                    <span class="blockTitle" title="B">B: </span>
+                    <span>X:</span>
+                    <input class="blockCoordX" value="4" type="number">
+                    <span>Y:</span>
+                    <input class="blockCoordY" value="2" type="number">
+                </div>
+                <div class="blockOption">
+                    <span class="blockTitle" title="C">C: </span>
+                    <span>X:</span>
+                    <input class="blockCoordX" value="4" type="number">
+                    <span>Y:</span>
+                    <input class="blockCoordY" value="3"type="number">
                 </div>
         </div>
     </div>
@@ -42,8 +57,12 @@
     <div id="buttonsDiv">
         <button id="generateGridBtn" onClick="graphicsManager.generateGrid();
         $('#generateBlocksBtn').removeClass('hidden');
-        $('#gridBlocksOptionDiv').removeClass('hidden');">Generate Grid</button>
-        <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()" class="hidden" >Generate Blocks</button>
+        $('#gridBlocksOptionDiv').removeClass('hidden');">Change Grid Size</button>
+        <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()">Generate Blocks</button>
+        <button id="editlocksBtn" onClick="graphicsManager.editBlocks()">Edit Blocks Number</button>
+
+        <button id="saveStartStateBtn"onClick="searchManager.saveStartState()">Save Start State</button>
+        <button id="saveGoalStateBtn"onClick="searchManager.saveGoalState()">Save Goal State</button>
         <div id="controlsDiv">
                 <button id="moveLeft" onClick="graphicsManager.moveLeft()">Left</button>
                 <button id="moveRight"onClick="graphicsManager.moveRight()">Right</button>
@@ -54,7 +73,7 @@
 
 
 
-    <div id="outputDiv">
+    <div id="outputDiv"style="float:right;">
         <div id="consoleOutputDiv" style="float:left;">
             <span>Console output</span>
         </div>

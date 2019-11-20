@@ -17,8 +17,13 @@ let node = new GraphNode('001*',null,"up",null,null)
 
 let graphicsManager = new GraphicsManager();
 graphicsManager.generateGrid();
+graphicsManager.generateBlocks();
+
+let searchManager =  new SerchManager();
+
+
 
 console.log(graphicsManager);
-
+console.log(searchManager);
 console.log(node);
 console.log(node.state);

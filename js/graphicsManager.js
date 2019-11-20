@@ -30,14 +30,25 @@ class GraphicsManager{
                 block.css("grid-area", (i+1) + " / " + (j+1) + " span 1 / span 1");
                 block.attr("row", i+1);
                 block.attr("col", j+1);
+
                 sumblocks++;
             }
         }
         $('#gridBlock'+ (sumblocks - 1)).attr("id", "agentBlock");
         this.agentBlock = $('#agentBlock');
 
-        // populate options with number of movable blocks
+        // number of movable blocks
         this.movableBlocks = $('#blocksNoInput').val();
+    }
+
+    editBlocks(){
+        // change number
+        this.movableBlocks = $('#blocksNoInput').val();
+        
+        
+        // repopulate options with number of movable blocks
+
+
         let blockOptionsDiv = $('#gridBlocksOptionDiv');
         blockOptionsDiv.empty();
 
@@ -49,6 +60,7 @@ class GraphicsManager{
             blockOptionsDiv.append($.parseHTML(htmlString));
         }
     }
+
     generateBlocks(){
         $('.gridBlock').each(function(index){
             $(this).empty();
@@ -63,7 +75,7 @@ class GraphicsManager{
 
             block.addClass("movableBlock");
             block.append("<div>"+blockTitle+"</div>");
-        })
+        });
     }
 
 
@@ -91,21 +103,25 @@ class GraphicsManager{
         block2.attr("row", block1Row);
         block2.attr("col", block1Col);
     }
+
     moveLeft(){
         let subjectRow = parseInt(this.agentBlock.attr("row"));
         let subjectCol = parseInt(this.agentBlock.attr("col")) - 1;
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
     }
+
     moveRight(){
         let subjectRow = parseInt(this.agentBlock.attr("row"));
         let subjectCol = parseInt(this.agentBlock.attr("col")) + 1;
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
     }
+
     moveUp(){
         let subjectRow = parseInt(this.agentBlock.attr("row")) - 1;
         let subjectCol = parseInt(this.agentBlock.attr("col"));
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
     }
+
     moveDown(){
         let subjectRow = parseInt(this.agentBlock.attr("row")) + 1;
         let subjectCol = parseInt(this.agentBlock.attr("col"));
