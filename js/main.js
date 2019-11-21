@@ -31,6 +31,31 @@ $('#enableGraphicsCheck').change(function(){
   console.log(movementManager.graphicsEnabled);
 });
 
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if($('#enableGraphicsCheck').attr("checked")){
+    if (e.keyCode == '38') {
+        // up arrow
+      movementManager.moveUp();
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+        movementManager.moveDown();
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+       movementManager.moveLeft();
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+       movementManager.moveRight();
+    }
+  }
+}
 
 
 console.log(graphicsManager);
