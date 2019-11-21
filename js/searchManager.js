@@ -3,9 +3,11 @@ class  SearchManager{
         var gridSize;
         var startState;
         var goalState;
+        var currentGrid;
         var currentState;
         var agentCoords;
     }
+    // INITIALIZATION
     saveStartState(){
         this.gridSize = $('#gridSizeInput').val();
         this.startState = this.generateEmptygrid(this.gridSize);
@@ -17,9 +19,12 @@ class  SearchManager{
             
             self.startState[blockX][blockY] = blockTitle;
         });
+
         this.findAgentBlock(this.startState);
-        this.currentState = this.startState;
+        this.currentGrid = this.startState;
         this.agentCoords = this.findAgentCoords();
+        this.startState = new State(this.startState,this.gridSize,this.agentCoords);
+        this.currentState = new State(this.currentGrid,this.gridSize,this.agentCoords);
     }
     saveGoalState(){
         this.gridSize = $('#gridSizeInput').val();
@@ -34,6 +39,8 @@ class  SearchManager{
 
         });
         this.findAgentBlock(this.goalState);
+        this.goalState = new State(this.goalState,this.gridSize,this.agentCoords);
+
     }
     findAgentBlock(grid){
         let agentBlock = $('#agentBlock');
@@ -46,11 +53,11 @@ class  SearchManager{
     findAgentCoords(){
         let agentX;
         let agentY;
-        for(let i in this.currentState)
+        for(let i in this.currentGrid)
         {
-            for(let j in this.currentState[i])
+            for(let j in this.currentGrid[i])
             {
-                if(this.currentState[i][j] == "*"){
+                if(this.currentGrid[i][j] == "*"){
                     agentX = i;
                     agentY = j;  
                 }
@@ -62,47 +69,6 @@ class  SearchManager{
         }
         return agentCoords;
     }
-
-
-    moveUp(){
-        let aux = this.currentState[this.agentCoords.x-1][this.agentCoords.y];
-        this.currentState[this.agentCoords.x - 1][this.agentCoords.y] = 
-        this.currentState[this.agentCoords.x][this.agentCoords.y];
-        this.currentState[this.agentCoords.x][this.agentCoords.y] = aux;
-
-        this.agentCoords.x = this.agentCoords.x - 1;
-        console.log(this.currentState);
-    }
-    moveDown(){
-        let aux = this.currentState[this.agentCoords.x + 1][this.agentCoords.y];
-        this.currentState[this.agentCoords.x + 1][this.agentCoords.y] = 
-        this.currentState[this.agentCoords.x][this.agentCoords.y];
-        this.currentState[this.agentCoords.x][this.agentCoords.y] = aux;
-
-        this.agentCoords.x = this.agentCoords.x + 1;
-        console.log(this.currentState);
-    }
-    moveLeft(){
-        let aux = this.currentState[this.agentCoords.x][this.agentCoords.y - 1];
-        this.currentState[this.agentCoords.x][this.agentCoords.y - 1] = 
-        this.currentState[this.agentCoords.x][this.agentCoords.y];
-        this.currentState[this.agentCoords.x][this.agentCoords.y] = aux;
-
-        this.agentCoords.y = this.agentCoords.y - 1;
-        console.log(this.currentState);
-    }
-    moveRight(){
-        let aux = this.currentState[this.agentCoords.x][this.agentCoords.y + 1];
-        this.currentState[this.agentCoords.x][this.agentCoords.y + 1] = 
-        this.currentState[this.agentCoords.x][this.agentCoords.y];
-        this.currentState[this.agentCoords.x][this.agentCoords.y] = aux;
-
-        this.agentCoords.y = this.agentCoords.y + 1;
-        console.log(this.currentState);
-    }
-
-
-
     generateEmptygrid(gridSize){
         let grid = Create2DArray(gridSize);
         for(let i=0;i<gridSize;i++){
