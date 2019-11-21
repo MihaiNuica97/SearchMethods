@@ -1,7 +1,7 @@
 class GraphicsManager{
     constructor(){
         this.grid = $('#gridOuterDiv');
-        
+        this.initialGenerate = true;
     }
     generateGrid(){
         // take input for grid size (default:2)
@@ -57,8 +57,10 @@ class GraphicsManager{
         for(let i=0; i<this.movableBlocks;i++){
             let htmlString = '<div class="blockOption"><span class="blockTitle" title='+currentLetter+'>'+currentLetter+': </span><span>X:</span><input class="blockCoordX" type="number" value = "1" min="1" max="6"><span>Y:</span><input class="blockCoordY" type="number" value = "1" min="1" max="6"></div>';
             currentLetter = nextCharacter(currentLetter);
-            blockOptionsDiv.append($.parseHTML(htmlString));
+            let option = $.parseHTML(htmlString)
+            blockOptionsDiv.append(option);
         }
+        this.generateBlocks();
     }
 
     generateBlocks(){
@@ -71,12 +73,24 @@ class GraphicsManager{
             let blockX = $(this).find(".blockCoordX").val();
             let blockY = $(this).find(".blockCoordY").val();
 
-            let block = $('[row = '+ (blockX) + '][col = ' + (blockY) + ']:not(#agentBlock)');
+            let block = $('[row = '+ (blockX) + '][col = ' + (blockY) + ']:not(#agentBlock):not(.movableBlock)');
 
             block.attr("title",blockTitle);
             block.addClass("movableBlock");
             block.append("<div>"+blockTitle+"</div>");
         });
+        // regenerate movable blocks on input box change if first time
+        if(this.initialGenerate){
+            let blockOptionsDiv = $('#gridBlocksOptionDiv');
+            let context = this;
+            blockOptionsDiv.change(function(){
+                context.generateBlocks();
+            });
+            $('#blocksNoInput').change(function(){
+                context.editBlocks();
+            });
+            this.initialGenerate = false;
+        }
     }
 
 

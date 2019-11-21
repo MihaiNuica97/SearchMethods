@@ -7,6 +7,8 @@ class  SearchManager{
         var currentState;
         var agentCoords;
     }
+
+
     // INITIALIZATION
     saveStartState(){
         this.gridSize = $('#gridSizeInput').val();
@@ -78,4 +80,6 @@ class  SearchManager{
         }
         return grid;
     }
+
+    
 }

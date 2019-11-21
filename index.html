@@ -25,10 +25,15 @@
         <div id="gridSizeDiv">
             <span>Grid Size: </span>
             <input type="number" value="4" max="6" id="gridSizeInput">
+            <button id="generateGridBtn" onClick="graphicsManager.generateGrid();
+            $('#generateBlocksBtn').removeClass('hidden');
+            $('#gridBlocksOptionDiv').removeClass('hidden');">Change Grid Size</button>
+
         </div>
         <div id="gridBlocksInputDiv">
             <span>Grid Blocks: </span>
             <input type="number" value="3" max="6" id="blocksNoInput">
+            <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()">Generate Blocks</button>
         </div>
         <div id="gridBlocksOptionDiv">
                 <div class="blockOption">
@@ -57,11 +62,7 @@
 
 
     <div id="buttonsDiv">
-        <button id="generateGridBtn" onClick="graphicsManager.generateGrid();
-        $('#generateBlocksBtn').removeClass('hidden');
-        $('#gridBlocksOptionDiv').removeClass('hidden');">Change Grid Size</button>
-        <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()">Generate Blocks</button>
-        <button id="editlocksBtn" onClick="graphicsManager.editBlocks()">Edit Blocks Number</button>
+
         <br>
         <button id="saveStartStateBtn"onClick="searchManager.saveStartState()">Save Start State</button>
         <button id="saveGoalStateBtn"onClick="searchManager.saveGoalState()">Save Goal State</button>
