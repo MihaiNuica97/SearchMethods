@@ -8,6 +8,7 @@
     <script src="./js/graphicsManager.js"></script>
     <script src="./js/searchManager.js"></script>
     <script src="./js/state.js"></script>
+    <script src="./js/movementManager.js"></script>
 </head>
 
 <body>
@@ -64,11 +65,16 @@
         <br>
         <button id="saveStartStateBtn"onClick="searchManager.saveStartState()">Save Start State</button>
         <button id="saveGoalStateBtn"onClick="searchManager.saveGoalState()">Save Goal State</button>
+        <br>
+        <div id="enableGraphicsDiv">
+            <input id="enableGraphicsCheck"  type="checkbox" checked>
+            <span>Enable Graphics</span>
+        </div>
         <div id="controlsDiv">
-                <button id="moveLeft" onClick="graphicsManager.moveLeft()">Left</button>
-                <button id="moveRight"onClick="graphicsManager.moveRight()">Right</button>
-                <button id="moveUp"onClick="graphicsManager.moveUp()">Up</button>
-                <button id="moveDown"onClick="graphicsManager.moveDown()">Down</button>
+                <button id="moveLeft" onClick="movementManager.moveLeft();">Left</button>
+                <button id="moveRight"onClick="movementManager.moveRight();">Right</button>
+                <button id="moveUp"onClick="movementManager.moveUp();">Up</button>
+                <button id="moveDown"onClick="movementManager.moveDown();">Down</button>
         </div>
     </div>
 

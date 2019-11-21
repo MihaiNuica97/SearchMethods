@@ -20,6 +20,16 @@ graphicsManager.generateGrid();
 graphicsManager.generateBlocks();
 
 let searchManager =  new SearchManager();
+searchManager.saveStartState();
+searchManager.saveGoalState();
+
+let movementManager = new MovementManager(graphicsManager,searchManager);
+
+// event handler for graphics checkbox
+$('#enableGraphicsCheck').change(function(){
+  movementManager.graphicsEnabled = this.checked;
+  console.log(movementManager.graphicsEnabled);
+});
 
 
 
