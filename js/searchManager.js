@@ -6,10 +6,10 @@ class  SerchManager{
         this.gridSize = $('#gridSizeInput').val();
         this.startState = this.generateEmptygrid(this.gridSize);
         let self = this;
-        $('.blockOption').each(function(index){
-            let blockTitle = $(this).find(".blockTitle").attr("title");
-            let blockX = $(this).find(".blockCoordX").val()-1;
-            let blockY = $(this).find(".blockCoordY").val()-1;
+        $('.movableBlock').each(function(index){
+            let blockTitle = $(this).attr("title");
+            let blockX = parseInt($(this).attr("row"))-1;
+            let blockY = parseInt($(this).attr("col"))-1;
             
             self.startState[blockX][blockY] = blockTitle;
         });
@@ -20,10 +20,10 @@ class  SerchManager{
         this.gridSize = $('#gridSizeInput').val();
         this.goalState = this.generateEmptygrid(this.gridSize);
         let self = this;
-        $('.blockOption').each(function(index){
-            let blockTitle = $(this).find(".blockTitle").attr("title");
-            let blockX = $(this).find(".blockCoordX").val()-1;
-            let blockY = $(this).find(".blockCoordY").val()-1;
+        $('.movableBlock').each(function(index){
+            let blockTitle = $(this).attr("title");
+            let blockX = parseInt($(this).attr("row"))-1;
+            let blockY = parseInt($(this).attr("col"))-1;
             
             self.goalState[blockX][blockY] = blockTitle;
 

@@ -73,6 +73,7 @@ class GraphicsManager{
 
             let block = $('[row = '+ (blockX) + '][col = ' + (blockY) + ']');
 
+            block.attr("title",blockTitle);
             block.addClass("movableBlock");
             block.append("<div>"+blockTitle+"</div>");
         });
