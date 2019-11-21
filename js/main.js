@@ -19,7 +19,7 @@ let graphicsManager = new GraphicsManager();
 graphicsManager.generateGrid();
 graphicsManager.generateBlocks();
 
-let searchManager =  new SerchManager();
+let searchManager =  new SearchManager();
 
 
 

@@ -71,7 +71,7 @@ class GraphicsManager{
             let blockX = $(this).find(".blockCoordX").val();
             let blockY = $(this).find(".blockCoordY").val();
 
-            let block = $('[row = '+ (blockX) + '][col = ' + (blockY) + ']');
+            let block = $('[row = '+ (blockX) + '][col = ' + (blockY) + ']:not(#agentBlock)');
 
             block.attr("title",blockTitle);
             block.addClass("movableBlock");

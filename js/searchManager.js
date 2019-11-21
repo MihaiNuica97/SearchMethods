@@ -1,4 +1,4 @@
-class  SerchManager{
+class  SearchManager{
     constructor(){
 
     }
@@ -40,8 +40,7 @@ class  SerchManager{
 
     }
 
-
-
+    
 
 
 
