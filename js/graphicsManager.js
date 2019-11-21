@@ -1,7 +1,8 @@
 class GraphicsManager{
     constructor(){
         this.grid = $('#gridOuterDiv');
-        this.initialGenerate = true;
+        this.initialBlocksGenerate = true;
+        this.initialGridGenerate = true;
     }
     generateGrid(){
         // take input for grid size (default:2)
@@ -39,6 +40,15 @@ class GraphicsManager{
 
         // number of movable blocks
         this.movableBlocks = $('#blocksNoInput').val();
+
+        if(this.initialGridGenerate){
+            let gridInput = $('#gridSizeInput');
+            let context = this;
+            gridInput.change(function(){
+                context.generateGrid();
+            });
+            this.initialGridGenerate = false;
+        }
     }
 
     editBlocks(){
@@ -80,7 +90,7 @@ class GraphicsManager{
             block.append("<div>"+blockTitle+"</div>");
         });
         // regenerate movable blocks on input box change if first time
-        if(this.initialGenerate){
+        if(this.initialBlocksGenerate){
             let blockOptionsDiv = $('#gridBlocksOptionDiv');
             let context = this;
             blockOptionsDiv.change(function(){
@@ -89,7 +99,7 @@ class GraphicsManager{
             $('#blocksNoInput').change(function(){
                 context.editBlocks();
             });
-            this.initialGenerate = false;
+            this.initialBlocksGenerate = false;
         }
     }
 
