@@ -6,6 +6,5 @@ class GraphNode {
         this.pathCost = pathCost;//to be implemented in A*
         this.depth = depth;//depth level of the node aka # of parent nodes
     }
-
-
+    
 }

@@ -4,7 +4,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/mainLayout.css">
     <script src="./js/jquery-3.4.1.js"></script>
-    <script src="./js/node.js"></script>
+    <script src="./js/graphNode.js"></script>
     <script src="./js/graphicsManager.js"></script>
     <script src="./js/searchManager.js"></script>
     <script src="./js/state.js"></script>
@@ -24,7 +24,7 @@
     <div id="optionsDiv">
         <div id="gridSizeDiv">
             <span>Grid Size: </span>
-            <input type="number" value="4" max="6" id="gridSizeInput">
+            <input type="number" value="3" max="6" id="gridSizeInput">
             <button id="generateGridBtn" onClick="graphicsManager.generateGrid();
             $('#generateBlocksBtn').removeClass('hidden');
             $('#gridBlocksOptionDiv').removeClass('hidden');">Change Grid Size</button>
@@ -32,31 +32,31 @@
         </div>
         <div id="gridBlocksInputDiv">
             <span>Grid Blocks: </span>
-            <input type="number" value="3" max="6" id="blocksNoInput">
+            <input type="number" value="2" max="6" id="blocksNoInput">
             <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()">Generate Blocks</button>
         </div>
         <div id="gridBlocksOptionDiv">
                 <div class="blockOption">
                     <span class="blockTitle" title="A">A: </span>
                     <span>X:</span>
-                    <input class="blockCoordX" value="4" type="number">
+                    <input class="blockCoordX" value="3" type="number">
                     <span>Y:</span>
                     <input class="blockCoordY" value="1" type="number">
                 </div>
                 <div class="blockOption">
                     <span class="blockTitle" title="B">B: </span>
                     <span>X:</span>
-                    <input class="blockCoordX" value="4" type="number">
+                    <input class="blockCoordX" value="3" type="number">
                     <span>Y:</span>
                     <input class="blockCoordY" value="2" type="number">
                 </div>
-                <div class="blockOption">
+                <!-- <div class="blockOption">
                     <span class="blockTitle" title="C">C: </span>
                     <span>X:</span>
                     <input class="blockCoordX" value="4" type="number">
                     <span>Y:</span>
                     <input class="blockCoordY" value="3"type="number">
-                </div>
+                </div> -->
         </div>
     </div>
 
@@ -66,6 +66,14 @@
         <br>
         <button id="saveStartStateBtn"onClick="searchManager.saveStartState()">Save Start State</button>
         <button id="saveGoalStateBtn"onClick="searchManager.saveGoalState()">Save Goal State</button>
+        <br>
+        <select name="Search Strategies" id="searchDropdown">
+            <option value="DFS">Depth First</option>
+            <option value="BFS">Breadth First</option>
+            <option value="IDS">Iterative Deepening</option>
+            <option value="AHS">A* Heuristic</option>
+        </select>
+        <button id="goBTN">GO</button>
         <br>
         <div id="enableGraphicsDiv">
             <input id="enableGraphicsCheck"  type="checkbox" checked>
