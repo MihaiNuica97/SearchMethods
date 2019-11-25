@@ -50,17 +50,6 @@ class State{
             }
         }
 
-        equalStates(state1, state2){
-            for(let i=0; i<state1.length;i++){
-                for(let j=0;j<state1.length;j++){
-                    if(state1[i][j] != 0 && state1[i][j] != "*"){
-                        if(state1[i][j] != state2[i][j]){
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
+
 
 }
