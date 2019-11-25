@@ -80,6 +80,5 @@ class  SearchManager{
         }
         return grid;
     }
-
     
 }
