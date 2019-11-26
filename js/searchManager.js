@@ -26,7 +26,7 @@ class  SearchManager{
         this.findAgentBlock(this.startState);
         this.currentGrid = this.startState;
         this.agentCoords = this.findAgentCoords();
-        this.startState = new State(this.startState,this.gridSize,this.agentCoords);
+        this.startState = new State( cloneArray(this.startState),this.gridSize,{...this.agentCoords});
         this.currentState = new State(this.currentGrid,this.gridSize,this.agentCoords);
         console.log("Saved Start State:");
         console.log(this.startState.stateGrid);
@@ -131,7 +131,6 @@ class  SearchManager{
             let node = fringe.pop();
             
             if(node.action!=null){
-                movementManager.moveBack(node.action);
             }
             
             console.log(node)
@@ -151,7 +150,6 @@ class  SearchManager{
             for(let i in addToFringe){
                 fringe.push(addToFringe[i]);
             }
-            movementManager.move(fringe[fringe.length-1].action);
             console.log(fringe);
         }
 
