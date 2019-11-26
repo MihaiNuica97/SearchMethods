@@ -2,17 +2,18 @@ function nextCharacter(c) {
   return String.fromCharCode(c.charCodeAt(0) + 1); 
 } 
 function Create2DArray(rows) {
-    var arr = [];
-  
-    for (var i=0;i<rows;i++) {
-       arr[i] = [];
-    }
-  
-    return arr;
+  var arr = [];
+
+  for (var i=0;i<rows;i++) {
+      arr[i] = [];
   }
 
+  return arr;
+}
 
-let node = new GraphNode('001*',null,"up",null,null)
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 let graphicsManager = new GraphicsManager();
 graphicsManager.generateGrid();
@@ -22,7 +23,14 @@ let searchManager =  new SearchManager();
 searchManager.saveStartState();
 searchManager.saveGoalState();
 
+let grid = [[0,"A",0],
+            [0,"B",0],
+            [0,0,0]];
+searchManager.goalStateFromGrid(grid);
+
+
 let movementManager = new MovementManager(graphicsManager,searchManager);
+searchManager.movementManager = movementManager;
 
 // event handler for graphics checkbox
 $('#enableGraphicsCheck').change(function(){
@@ -59,5 +67,14 @@ function checkKey(e) {
 
 console.log(graphicsManager);
 console.log(searchManager);
-console.log(node);
-console.log(node.state);
+
+
+// async function tryin(){
+//   let i=3;
+//   while(i>1){
+//     await sleep(500);
+//     movementManager.moveLeft();
+//     i--;
+//   }
+// }
+// tryin();

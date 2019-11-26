@@ -6,6 +6,7 @@ class  SearchManager{
         var currentGrid;
         var currentState;
         var agentCoords;
+        var movementManager;
     }
 
 
@@ -80,18 +81,45 @@ class  SearchManager{
         }
         return grid;
     }
+    goalStateFromGrid(grid){
+        let newGrid = grid.map(function(arr)
+        {
+            return arr.slice();
+        });
+        this.goalState = new State(newGrid,newGrid[0].length,null);
+        console.log(this.goalState);
+    }
 
-    equalStates(state1, state2){
-        for(let i=0; i<state1.length;i++){
-            for(let j=0;j<state1.length;j++){
-                if(state1[i][j] != 0 && state1[i][j] != "*"){
-                    if(state1[i][j] != state2[i][j]){
+    equalGrids(grid1, grid2){
+        for(let i=0; i<grid1.length;i++){
+            for(let j=0;j<grid1.length;j++){
+                if(grid1[i][j] != 0 && grid1[i][j] != "*"){
+                    if(grid1[i][j] != grid2[i][j]){
                         return false;
                     }
                 }
             }
         }
         return true;
+    }
+    
+    chooseSearchStrategy(){
+        let strat = $('#searchDropdown').val();
+
+        switch(strat){
+            case "DFS":
+                console.log("DFS");
+                this.DFS();
+                break;
+        }
+    }
+
+    DFS(){
+        let context = this;
+        let rootNode = new GraphNode(this.startState,null,null,null,0);
+        movementManager.moveLeft().then(()=>{
+            console.log(context.currentGrid);
+        });
     }
     
 }

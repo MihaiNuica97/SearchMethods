@@ -13,8 +13,10 @@ class State{
                 this.stateGrid[this.agentCoords.x][this.agentCoords.y] = aux;
         
                 this.agentCoords.x = this.agentCoords.x - 1;
-                console.log(this.stateGrid);
+                
+                return true;
             }
+            return false;
         }
         moveDown(){
             if(this.agentCoords.x +1 < this.gridSize){
@@ -24,8 +26,9 @@ class State{
                 this.stateGrid[this.agentCoords.x][this.agentCoords.y] = aux;
         
                 this.agentCoords.x = this.agentCoords.x + 1;
-                console.log(this.stateGrid);
+                return true;
             }
+            return false;
         }
         moveLeft(){
             if(this.agentCoords.y > 0){
@@ -35,8 +38,9 @@ class State{
                 this.stateGrid[this.agentCoords.x][this.agentCoords.y] = aux;
         
                 this.agentCoords.y = this.agentCoords.y - 1;
-                console.log(this.stateGrid);
+                return true;
             }
+            return false;
         }
         moveRight(){
             if(this.agentCoords.y+1 < this.gridSize){
@@ -46,8 +50,9 @@ class State{
                 this.stateGrid[this.agentCoords.x][this.agentCoords.y] = aux;
         
                 this.agentCoords.y = this.agentCoords.y + 1;
-                console.log(this.stateGrid);
+                return true;
             }
+            return false;
         }
 
 

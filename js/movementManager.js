@@ -3,31 +3,37 @@ class MovementManager{
         this.graphicsManager = graphicsManager;
         this.searchManager = searchManager;
         this.graphicsEnabled = true;
+        this.delayTime = 500;
     }
 
-    moveUp(){
+    async moveUp(){
         if(this.graphicsEnabled){
+            await sleep(this.delayTime);
             this.graphicsManager.moveUp();
         }
         this.searchManager.currentState.moveUp();
     }
 
-    moveDown(){
+    async moveDown(){
         if(this.graphicsEnabled){
+            await sleep(this.delayTime);
             this.graphicsManager.moveDown();
         }
         this.searchManager.currentState.moveDown();
     }
 
-    moveRight(){
+    async moveRight(){
+        
         if(this.graphicsEnabled){
+            await sleep(this.delayTime);
             this.graphicsManager.moveRight();
         }
         this.searchManager.currentState.moveRight();
     }
     
-    moveLeft(){
+    async moveLeft(){
         if(this.graphicsEnabled){
+            await sleep(this.delayTime);
             this.graphicsManager.moveLeft();
         }
         this.searchManager.currentState.moveLeft();

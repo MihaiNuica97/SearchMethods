@@ -73,7 +73,7 @@
             <option value="IDS">Iterative Deepening</option>
             <option value="AHS">A* Heuristic</option>
         </select>
-        <button id="goBTN">GO</button>
+        <button id="goBTN" onClick = "searchManager.chooseSearchStrategy();" >GO</button>
         <br>
         <div id="enableGraphicsDiv">
             <input id="enableGraphicsCheck"  type="checkbox" checked>
@@ -85,6 +85,7 @@
                 <button id="moveUp"onClick="movementManager.moveUp();">Up</button>
                 <button id="moveDown"onClick="movementManager.moveDown();">Down</button>
         </div>
+        <div id="startGoalStateDiv" style="float: right;" ><span>Start State, Goal State</span></div>
     </div>
 
 
