@@ -151,9 +151,8 @@ class GraphicsManager{
         let subjectRow = parseInt(this.agentBlock.attr("row")) + 1;
         let subjectCol = parseInt(this.agentBlock.attr("col"));
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
- 
     }
     
-
+    
 
 }

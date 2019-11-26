@@ -14,6 +14,26 @@ function Create2DArray(rows) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+function cloneArray(a){
+  return a.map(function(arr){
+    return arr.slice();
+  });
+};
+
+// Fisher-Yates shuffle Taken from  https://javascript.info/task/shuffle
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+    // swap elements array[i] and array[j]
+    // we use "destructuring assignment" syntax to achieve that
+    // you'll find more details about that syntax in later chapters
+    // same can be written as:
+    // let t = array[i]; array[i] = array[j]; array[j] = t
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 
 let graphicsManager = new GraphicsManager();
 graphicsManager.generateGrid();
@@ -23,10 +43,10 @@ let searchManager =  new SearchManager();
 searchManager.saveStartState();
 searchManager.saveGoalState();
 
-let grid = [[0,"A",0],
+let defaultGrid = [[0,"A",0],
             [0,"B",0],
             [0,0,0]];
-searchManager.goalStateFromGrid(grid);
+searchManager.goalStateFromGrid(defaultGrid);
 
 
 let movementManager = new MovementManager(graphicsManager,searchManager);

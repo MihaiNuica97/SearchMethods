@@ -4,6 +4,7 @@ class State{
         this.gridSize = gridSize;
         this.agentCoords = agentCoords;
     }
+
         // MOVEMENT
         moveUp(){
             if(this.agentCoords.x > 0){
@@ -54,7 +55,39 @@ class State{
             }
             return false;
         }
+        canMove(direction){
+            switch(direction){
+                case "up":
+                    return (this.agentCoords.x > 0);
 
+                case "down":
+                    return (this.agentCoords.x +1 < this.gridSize);
+            
+                case "left":
+                    return (this.agentCoords.y > 0);
 
+                case "right":
+                    return (this.agentCoords.y+1 < this.gridSize);
+            }
+        }
 
+        move(direction){
+            switch(direction){
+                case "up":
+                    this.moveUp();
+                    break;
+
+                case "down":
+                    this.moveDown();
+                    break;
+            
+                case "left":
+                    this.moveLeft();
+                    break;
+
+                case "right":
+                    this.moveRight();
+                    break;
+            }
+        }
 }

@@ -3,12 +3,12 @@ class MovementManager{
         this.graphicsManager = graphicsManager;
         this.searchManager = searchManager;
         this.graphicsEnabled = true;
-        this.delayTime = 500;
+        this.delayTime = 200;
     }
 
     async moveUp(){
         if(this.graphicsEnabled){
-            await sleep(this.delayTime);
+            // await sleep(this.delayTime);
             this.graphicsManager.moveUp();
         }
         this.searchManager.currentState.moveUp();
@@ -16,7 +16,7 @@ class MovementManager{
 
     async moveDown(){
         if(this.graphicsEnabled){
-            await sleep(this.delayTime);
+            // await sleep(this.delayTime);
             this.graphicsManager.moveDown();
         }
         this.searchManager.currentState.moveDown();
@@ -25,7 +25,7 @@ class MovementManager{
     async moveRight(){
         
         if(this.graphicsEnabled){
-            await sleep(this.delayTime);
+            // await sleep(this.delayTime);
             this.graphicsManager.moveRight();
         }
         this.searchManager.currentState.moveRight();
@@ -33,12 +33,54 @@ class MovementManager{
     
     async moveLeft(){
         if(this.graphicsEnabled){
-            await sleep(this.delayTime);
+            // await sleep(this.delayTime);
             this.graphicsManager.moveLeft();
         }
         this.searchManager.currentState.moveLeft();
     }
 
+    move(direction){
+            setTimeout(()=>{        
+                switch(direction){
+                case "up":
+                    this.moveUp();
+                    break;
+
+                case "down":
+                    this.moveDown();
+                    break;
+            
+                case "left":
+                    this.moveLeft();
+                    break;
+
+                case "right":
+                    this.moveRight();
+                    break;
+            }
+        },this.delayTime);
+    }
+    moveBack(direction){
+        setTimeout(()=>{        
+            switch(direction){
+            case "down":
+                this.moveUp();
+                break;
+
+            case "up":
+                this.moveDown();
+                break;
+        
+            case "right":
+                this.moveLeft();
+                break;
+
+            case "left":
+                this.moveRight();
+                break;
+        }
+    },this.delayTime);
+    }
 
 
 }

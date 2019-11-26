@@ -12,7 +12,7 @@ class  SearchManager{
 
     // INITIALIZATION
     saveStartState(){
-        this.gridSize = $('#gridSizeInput').val();
+        this.gridSize = parseInt($('#gridSizeInput').val());
         this.startState = this.generateEmptygrid(this.gridSize);
         let self = this;
         $('.movableBlock').each(function(index){
@@ -28,6 +28,9 @@ class  SearchManager{
         this.agentCoords = this.findAgentCoords();
         this.startState = new State(this.startState,this.gridSize,this.agentCoords);
         this.currentState = new State(this.currentGrid,this.gridSize,this.agentCoords);
+        console.log("Saved Start State:");
+        console.log(this.startState.stateGrid);
+
     }
     saveGoalState(){
         this.gridSize = $('#gridSizeInput').val();
@@ -102,6 +105,9 @@ class  SearchManager{
         }
         return true;
     }
+
+
+
     
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
@@ -117,9 +123,50 @@ class  SearchManager{
     DFS(){
         let context = this;
         let rootNode = new GraphNode(this.startState,null,null,null,0);
-        movementManager.moveLeft().then(()=>{
-            console.log(context.currentGrid);
-        });
+        let fringe = [rootNode];
+        let directions = ["up","down","left","right"];
+        shuffle(directions);
+
+        function expand(fringe){
+            let node = fringe.pop();
+            
+            if(node.action!=null){
+                movementManager.moveBack(node.action);
+            }
+            
+            console.log(node)
+            let addToFringe = [];
+            let auxNode;
+            let auxState;
+            for(let i in directions){
+                if(node.state.canMove(directions[i])){
+                    auxState = new State(cloneArray(node.state.stateGrid),node.state.gridSize,{...node.state.agentCoords});
+                    auxState.move(directions[i]);
+                    auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
+                    addToFringe.push(auxNode);
+                }
+            }
+
+            shuffle(addToFringe);
+            for(let i in addToFringe){
+                fringe.push(addToFringe[i]);
+            }
+            movementManager.move(fringe[fringe.length-1].action);
+            console.log(fringe);
+        }
+
+        while(fringe.length!=0){
+            if(this.equalGrids(fringe[fringe.length-1].state.stateGrid,this.goalState.stateGrid)){
+                console.log(fringe[fringe.length-1]);
+                return true;
+            }
+            expand(fringe);
+        }
+        return false;
+        // movementManager.moveLeft().then(()=>{
+        //     console.log(context.currentGrid);
+        // });
+
     }
     
 }
