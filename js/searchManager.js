@@ -33,7 +33,7 @@ class  SearchManager{
 
     }
     saveGoalState(){
-        this.gridSize = $('#gridSizeInput').val();
+        this.gridSize = parseInt($('#gridSizeInput').val());
         this.goalState = this.generateEmptygrid(this.gridSize);
         let self = this;
         $('.movableBlock').each(function(index){
@@ -46,7 +46,8 @@ class  SearchManager{
         });
         this.findAgentBlock(this.goalState);
         this.goalState = new State(this.goalState,this.gridSize,this.agentCoords);
-
+        console.log("Saved Goal State From Graphics");
+        console.log(this.goalState.stateGrid);
     }
     findAgentBlock(grid){
         let agentBlock = $('#agentBlock');
@@ -117,6 +118,10 @@ class  SearchManager{
                 console.log("DFS");
                 this.DFS();
                 break;
+            case "BFS":
+                console.log("BFS");
+                this.BFS();
+                break;
         }
     }
 
@@ -133,7 +138,6 @@ class  SearchManager{
             if(node.action!=null){
             }
             
-            console.log(node)
             let addToFringe = [];
             let auxNode;
             let auxState;
@@ -156,14 +160,57 @@ class  SearchManager{
         while(fringe.length!=0){
             if(this.equalGrids(fringe[fringe.length-1].state.stateGrid,this.goalState.stateGrid)){
                 console.log(fringe[fringe.length-1]);
+                graphicsManager.generateFromMatrix(fringe[fringe.length-1].state.stateGrid);
                 return true;
             }
             expand(fringe);
+            
         }
         return false;
         // movementManager.moveLeft().then(()=>{
         //     console.log(context.currentGrid);
         // });
+
+    }
+    BFS(){
+        let context = this;
+        let rootNode = new GraphNode(this.startState,null,null,null,0);
+        let fringe = [rootNode];
+        let directions = ["up","down","left","right"];
+
+        function expand(fringe){
+            let node = fringe.shift();
+            
+
+            
+            let addToFringe = [];
+            let auxNode;
+            let auxState;
+            for(let i in directions){
+                if(node.state.canMove(directions[i])){
+                    auxState = new State(cloneArray(node.state.stateGrid),node.state.gridSize,{...node.state.agentCoords});
+                    auxState.move(directions[i]);
+                    auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
+                    addToFringe.push(auxNode);
+                }
+            }
+
+            for(let i in addToFringe){
+                fringe.push(addToFringe[i]);
+            }
+            console.log(fringe);
+        }
+
+        while(fringe.length!=0){
+            if(this.equalGrids(fringe[0].state.stateGrid,this.goalState.stateGrid)){
+                console.log(fringe[0]);
+                graphicsManager.generateFromMatrix(fringe[0].state.stateGrid);
+                return true;
+            }
+            expand(fringe);
+            
+        }
+        return false;
 
     }
     

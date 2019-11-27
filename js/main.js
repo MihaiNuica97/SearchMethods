@@ -45,8 +45,15 @@ searchManager.saveGoalState();
 
 let defaultGrid = [[0,"A",0],
             [0,"B",0],
-            [0,0,0]];
+            [0,0,"*"]];
 searchManager.goalStateFromGrid(defaultGrid);
+
+defaultGrid = [[0,0,0],
+            [0,0,0],
+            ["A","B","*"]];
+
+graphicsManager.generateFromMatrix(defaultGrid);
+
 
 
 let movementManager = new MovementManager(graphicsManager,searchManager);
@@ -58,6 +65,7 @@ $('#enableGraphicsCheck').change(function(){
   console.log(movementManager.graphicsEnabled);
 });
 
+// event handler for arrow keys
 document.onkeydown = checkKey;
 
 function checkKey(e) {

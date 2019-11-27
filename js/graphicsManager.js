@@ -51,6 +51,74 @@ class GraphicsManager{
         }
     }
 
+
+    generateFromMatrix(matrix){
+        this.gridSize = matrix[0].length;
+
+        // create a grid with the specified dimensions
+        let gridStyle = {
+            "display": "grid",
+            "grid-template-columns": "repeat("+this.gridSize+", auto)",
+            "grid-template-rows": "repeat("+this.gridSize+", auto)"
+        }
+        this.grid.css(gridStyle);
+        
+        // clean up grid
+        this.grid.empty();
+        let sumblocks = 0
+
+        // populate with blocks according to matrix
+        for(let i in matrix){
+            for(let j in matrix[i]){
+                if(matrix[i][j] == "*"){ 
+                    // agent block
+                    console.log("agent block found")
+                    let block = jQuery('<div/>', {
+                        id: "agentBlock",
+                        "class": 'gridBlock agentBlock'
+                    }).appendTo(this.grid);
+    
+                    block.css("grid-area", (parseInt(i)+1) + " / " + (parseInt(j)+1) + " span 1 / span 1");
+                    block.attr("row", parseInt(i)+1);
+                    block.attr("col", parseInt(j)+1);
+                    this.agentBlock = $('#agentBlock');
+
+                }else if(matrix[i][j] == 0){
+
+                    // empty block
+
+                    let block = jQuery('<div/>', {
+                        id: 'gridBlock'+ sumblocks,
+                        "class": 'gridBlock emptyBlock'
+                    }).appendTo(this.grid);
+    
+                    block.css("grid-area", (parseInt(i)+1) + " / " + (parseInt(j)+1) + " span 1 / span 1");
+                    block.attr("row", parseInt(i)+1);
+                    block.attr("col", parseInt(j)+1);
+    
+
+
+                }else{
+                    // movable block
+
+                    let block = jQuery('<div/>', {
+                        id: 'gridBlock'+ sumblocks,
+                        "class": 'gridBlock movableBlock',
+                        title: matrix[i][j]
+                    }).appendTo(this.grid);
+    
+                    block.css("grid-area", (parseInt(i)+1) + " / " + (parseInt(j)+1) + " span 1 / span 1");
+                    block.attr("row", parseInt(i)+1);
+                    block.attr("col", parseInt(j)+1);
+                    block.append("<div>"+matrix[i][j]+"</div>");
+
+                }
+                sumblocks++;
+            }
+        }
+        
+    }
+
     editBlocks(){
         // change number
         this.movableBlocks = $('#blocksNoInput').val();
@@ -104,6 +172,10 @@ class GraphicsManager{
     }
 
 
+
+
+
+
     // blocks movement
     swapBlocks(block1, block2){
         let block1Row = block1.attr("row");
@@ -153,6 +225,7 @@ class GraphicsManager{
         this.swapBlocks(this.agentBlock, $('[row = '+ (subjectRow) + '][col = ' + (subjectCol) + ']'));
     }
     
+
     
 
 }
