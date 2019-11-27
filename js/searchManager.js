@@ -145,10 +145,7 @@ class  SearchManager{
 
         function expand(fringe){
             let node = fringe.pop();
-            
-            if(node.action!=null){
-            }
-            
+                        
             let addToFringe = [];
             let auxNode;
             let auxState;
@@ -276,8 +273,82 @@ class  SearchManager{
         }
         return dLSearch(limit);
     }
-    AHS(){
 
+    AHS(){
+        let context = this;
+        const rootNode = new GraphNode(this.startState,null,null,0,0);
+        let fringe = [rootNode];
+        let goalCoords = {};
+        let directions = ["up","down","left","right"];
+
+        // find coords of all movable blocks in goal state for future reference
+        function findGoalBlockCoords(){
+            let goalGrid = context.goalState.stateGrid;
+            console.log(goalGrid);
+            for(let i in goalGrid){
+                for(let j in goalGrid[i]){
+                    if(goalGrid[i][j] != 0 && goalGrid[i][j] != "*"){
+                        goalCoords[goalGrid[i][j]] = {
+                            x: 0,
+                            y: 0
+                        }
+                        goalCoords[goalGrid[i][j]].y = parseInt(i);
+                        goalCoords[goalGrid[i][j]].x = parseInt(j);
+                    }
+                }
+            }
+        }
+        findGoalBlockCoords();
+
+        // evaluate path cost of node
+        function evaluateCost(node){
+        // heuristic: cost = cost so far (depth) + distance for each block to destination
+            let thisGrid = node.state.stateGrid;
+            let cost = node.depth;
+            for(let i in thisGrid){
+                for(let j in thisGrid[i]){
+                    if(thisGrid[i][j] != 0 && thisGrid[i][j] != "*"){
+
+                        let xDist = Math.abs(parseInt(j) - goalCoords[thisGrid[i][j]].x);
+                        let yDist = Math.abs(parseInt(i) - goalCoords[thisGrid[i][j]].y);
+                        cost += (xDist + yDist);
+                    }
+                }
+            }
+            node.pathCost = cost;
+        }
+        // successor function. first node in list will always be the least cost node
+        function expand(){
+            let node = fringe.shift();
+                        
+            let addToFringe = [];
+            let auxNode;
+            let auxState;
+            for(let i in directions){
+                if(node.state.canMove(directions[i])){
+                    auxState = new State(cloneArray(node.state.stateGrid),node.state.gridSize,{...node.state.agentCoords});
+                    auxState.move(directions[i]);
+                    auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
+                    evaluateCost(auxNode);
+                    addToFringe.push(auxNode);
+                }
+            }
+
+            for(let i in addToFringe){
+                fringe.push(addToFringe[i]);
+            }
+            fringe.sort((a, b) => (a.pathCost > b.pathCost) ? 1 : -1);
+            console.log(fringe);
+        }
+
+        while(fringe.length > 0){
+            if(this.equalGrids(fringe[0].state.stateGrid,this.goalState.stateGrid)){
+                console.log(fringe[0]);
+                graphicsManager.generateFromMatrix(fringe[0].state.stateGrid);
+                return fringe[0];
+            }
+            expand();
+        }
+        return false
     }
-    
 }

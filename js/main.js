@@ -1,6 +1,8 @@
+// source: https://stackoverflow.com/
 function nextCharacter(c) { 
   return String.fromCharCode(c.charCodeAt(0) + 1); 
-} 
+}
+// source: https://stackoverflow.com/ 
 function Create2DArray(rows) {
   var arr = [];
 
@@ -11,9 +13,11 @@ function Create2DArray(rows) {
   return arr;
 }
 
+// source: https://stackoverflow.com/
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+// source: https://stackoverflow.com/
 function cloneArray(a){
   return a.map(function(arr){
     return arr.slice();
