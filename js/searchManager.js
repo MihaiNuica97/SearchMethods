@@ -112,24 +112,27 @@ class  SearchManager{
     
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
-
+        let solution;
         switch(strat){
             case "DFS":
                 console.log("DFS");
-                this.DFS();
+                solution = this.DFS();
                 break;
             case "BFS":
                 console.log("BFS");
-                this.BFS();
+                solution = this.BFS();
                 break;
             case "IDS":
                 console.log("IDS");
-                this.IDS();
+                solution = this.IDS();
                 break;
             case "AHS":
                 console.log("AHS")
-                this.AHS();
+                solution = this.AHS();
                 break;
+        }
+        if(solution){
+            movementManager.playSolution(solution);
         }
     }
 
@@ -169,15 +172,12 @@ class  SearchManager{
             if(this.equalGrids(fringe[fringe.length-1].state.stateGrid,this.goalState.stateGrid)){
                 console.log(fringe[fringe.length-1]);
                 graphicsManager.generateFromMatrix(fringe[fringe.length-1].state.stateGrid);
-                return true;
+                return fringe[fringe.length-1];
             }
             expand(fringe);
             
         }
         return false;
-        // movementManager.moveLeft().then(()=>{
-        //     console.log(context.currentGrid);
-        // });
 
     }
     BFS(){
@@ -213,7 +213,7 @@ class  SearchManager{
             if(this.equalGrids(fringe[0].state.stateGrid,this.goalState.stateGrid)){
                 console.log(fringe[0]);
                 graphicsManager.generateFromMatrix(fringe[0].state.stateGrid);
-                return true;
+                return fringe[0];
             }
             expand(fringe);
             
@@ -274,7 +274,7 @@ class  SearchManager{
             }
             return false;
         }
-        dLSearch(limit);
+        return dLSearch(limit);
     }
     AHS(){
 

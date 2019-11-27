@@ -3,7 +3,7 @@ class MovementManager{
         this.graphicsManager = graphicsManager;
         this.searchManager = searchManager;
         this.graphicsEnabled = true;
-        this.delayTime = 200;
+        this.delayTime = 500;
     }
 
     async moveUp(){
@@ -40,25 +40,23 @@ class MovementManager{
     }
 
     move(direction){
-            setTimeout(()=>{        
-                switch(direction){
-                case "up":
-                    this.moveUp();
-                    break;
+        switch(direction){
+            case "up":
+                this.moveUp();
+                break;
 
-                case "down":
-                    this.moveDown();
-                    break;
-            
-                case "left":
-                    this.moveLeft();
-                    break;
+            case "down":
+                this.moveDown();
+                break;
+        
+            case "left":
+                this.moveLeft();
+                break;
 
-                case "right":
-                    this.moveRight();
-                    break;
-            }
-        },this.delayTime);
+            case "right":
+                this.moveRight();
+                break;
+        }
     }
     moveBack(direction){
         setTimeout(()=>{        
@@ -83,4 +81,31 @@ class MovementManager{
     }
 
 
+    playSolution(finalNode){
+        console.log("playing solution...");
+        let path = [];
+        let myNode = finalNode
+        let context = this;
+        // backtrack through parent nodes noting down action until reaching root node
+        while(myNode.action != null){
+            path.push(myNode.action);
+            myNode = myNode.parentNode;
+        }
+
+        // reverse action array to get correct order
+        path = path.reverse();
+
+        // set grid to state of root node
+        this.graphicsManager.generateFromMatrix(myNode.state.stateGrid);
+
+        // for each action in array make corresponding move then wait for delay
+        this.interval = setInterval(()=>{
+            if(path.length == 0){
+                clearInterval(this);
+            }
+            context.move(path.shift());
+        },this.delayTime);
+        // for each action in array make corresponding move then wait for delay
+    }
+    
 }
