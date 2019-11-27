@@ -122,6 +122,14 @@ class  SearchManager{
                 console.log("BFS");
                 this.BFS();
                 break;
+            case "IDS":
+                console.log("IDS");
+                this.IDS();
+                break;
+            case "AHS":
+                console.log("AHS")
+                this.AHS();
+                break;
         }
     }
 
@@ -211,6 +219,64 @@ class  SearchManager{
             
         }
         return false;
+
+    }
+    IDS(){
+        // DFS up to limit then limit++ and repeat
+
+        let context = this;
+        const rootNode = new GraphNode(this.startState,null,null,null,0);
+        let fringe = [rootNode];
+        let directions = ["up","down","left","right"];
+        let limit = 0;
+        shuffle(directions);
+
+        function expand(fringe){
+            let node = fringe.pop();
+            
+            if(node.action!=null){
+            }
+            
+            let addToFringe = [];
+            let auxNode;
+            let auxState;
+            for(let i in directions){
+                if(node.state.canMove(directions[i])){
+                    auxState = new State(cloneArray(node.state.stateGrid),node.state.gridSize,{...node.state.agentCoords});
+                    auxState.move(directions[i]);
+                    auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
+                    addToFringe.push(auxNode);
+                }
+            }
+
+            shuffle(addToFringe);
+            for(let i in addToFringe){
+                fringe.push(addToFringe[i]);
+            }
+            console.log(fringe);
+        }
+        function dLSearch(limit){
+            fringe = [rootNode];
+
+
+            while(fringe.length!=0){
+                if(fringe[fringe.length-1].depth >= limit){
+                    limit++;
+                    console.log("Limit Reached. Restarting with limit of "+limit);
+                    return dLSearch(limit);
+                }
+                if(context.equalGrids(fringe[fringe.length-1].state.stateGrid,context.goalState.stateGrid)){
+                    console.log(fringe[fringe.length-1]);
+                    graphicsManager.generateFromMatrix(fringe[fringe.length-1].state.stateGrid);
+                    return fringe[fringe.length-1];
+                }
+                expand(fringe);
+            }
+            return false;
+        }
+        dLSearch(limit);
+    }
+    AHS(){
 
     }
     
