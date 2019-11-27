@@ -1,4 +1,5 @@
 class  SearchManager{
+
     constructor(){
         var gridSize;
         var startState;
@@ -8,6 +9,7 @@ class  SearchManager{
         var agentCoords;
         var movementManager;
     }
+
 
 
     // INITIALIZATION
@@ -32,6 +34,7 @@ class  SearchManager{
         console.log(this.startState.stateGrid);
 
     }
+
     saveGoalState(){
         this.gridSize = parseInt($('#gridSizeInput').val());
         this.goalState = this.generateEmptygrid(this.gridSize);
@@ -49,6 +52,7 @@ class  SearchManager{
         console.log("Saved Goal State From Graphics");
         console.log(this.goalState.stateGrid);
     }
+
     findAgentBlock(grid){
         let agentBlock = $('#agentBlock');
         let agentX =  parseInt(agentBlock.attr("row"))-1;
@@ -110,9 +114,12 @@ class  SearchManager{
 
 
     
+
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
         let solution;
+        clearInterval(movementManager.interval);
+        graphicsManager.generateFromMatrix(this.startState.stateGrid);
         switch(strat){
             case "DFS":
                 console.log("DFS");
@@ -136,6 +143,7 @@ class  SearchManager{
         }
     }
 
+    // Depth First Search
     DFS(){
         let context = this;
         let rootNode = new GraphNode(this.startState,null,null,null,0);
@@ -177,6 +185,8 @@ class  SearchManager{
         return false;
 
     }
+
+    // Breadth First Search
     BFS(){
         let context = this;
         let rootNode = new GraphNode(this.startState,null,null,null,0);
@@ -218,6 +228,8 @@ class  SearchManager{
         return false;
 
     }
+
+    // Iterative Deepening Search
     IDS(){
         // DFS up to limit then limit++ and repeat
 
@@ -226,30 +238,30 @@ class  SearchManager{
         let fringe = [rootNode];
         let directions = ["up","down","left","right"];
         let limit = 0;
-        shuffle(directions);
+        // shuffle(directions);
 
-        function expand(fringe){
+        function expand(fringe,limit){
             let node = fringe.pop();
-            
-            if(node.action!=null){
-            }
-            
+
             let addToFringe = [];
             let auxNode;
             let auxState;
-            for(let i in directions){
-                if(node.state.canMove(directions[i])){
-                    auxState = new State(cloneArray(node.state.stateGrid),node.state.gridSize,{...node.state.agentCoords});
-                    auxState.move(directions[i]);
-                    auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
-                    addToFringe.push(auxNode);
+            if(node.depth < limit){
+                for(let i in directions){
+                    if(node.state.canMove(directions[i])){
+                        auxState = new State(cloneArray(node.state.stateGrid),node.state.gridSize,{...node.state.agentCoords});
+                        auxState.move(directions[i]);
+                        auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
+                        addToFringe.push(auxNode);
+                    }
+                }
+                for(let i in addToFringe){
+                    fringe.push(addToFringe[i]);
                 }
             }
 
-            shuffle(addToFringe);
-            for(let i in addToFringe){
-                fringe.push(addToFringe[i]);
-            }
+            // shuffle(addToFringe);
+            console.log(limit);
             console.log(fringe);
         }
         function dLSearch(limit){
@@ -257,23 +269,20 @@ class  SearchManager{
 
 
             while(fringe.length!=0){
-                if(fringe[fringe.length-1].depth >= limit){
-                    limit++;
-                    console.log("Limit Reached. Restarting with limit of "+limit);
-                    return dLSearch(limit);
-                }
                 if(context.equalGrids(fringe[fringe.length-1].state.stateGrid,context.goalState.stateGrid)){
                     console.log(fringe[fringe.length-1]);
                     graphicsManager.generateFromMatrix(fringe[fringe.length-1].state.stateGrid);
                     return fringe[fringe.length-1];
                 }
-                expand(fringe);
+                expand(fringe, limit);
             }
-            return false;
+            limit ++;
+            return dLSearch(limit);
         }
         return dLSearch(limit);
     }
 
+    // A* Heuristic Search
     AHS(){
         let context = this;
         const rootNode = new GraphNode(this.startState,null,null,0,0);

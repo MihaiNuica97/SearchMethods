@@ -72,7 +72,6 @@ class GraphicsManager{
             for(let j in matrix[i]){
                 if(matrix[i][j] == "*"){ 
                     // agent block
-                    console.log("agent block found")
                     let block = jQuery('<div/>', {
                         id: "agentBlock",
                         "class": 'gridBlock agentBlock'
