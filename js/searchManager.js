@@ -8,6 +8,8 @@ class  SearchManager{
         var currentState;
         var agentCoords;
         var movementManager;
+        var solutionDetails;
+        var consoleOutput;
     }
 
 
@@ -113,13 +115,45 @@ class  SearchManager{
 
 
 
-    
+
+    resetSolutionDetails(){
+        this.solutionDetails = {
+            strategy: "",
+            nodesExpanded: 0,
+            totalNodes: 1,
+            maxNodes: 0,
+            solutionDepth: 0,
+        };
+    }
+
+    grabConsole(){
+        this.consoleOutput = {
+            title: $('#consoleOpuputTitleCon').children(0),
+            nodesExpanded: $('#consoleOutputNodesExpandedCon').children(0),
+            maxNodes: $('#consoleOutputMaxNodesCon').children(0),
+            totalNodes: $('#consoleOutputTotalNodesCon').children(0),
+            solutionDepth: $('#consoleOutputSolutionDepthCon').children(0)
+        }
+        console.log(this.consoleOutput);
+    }
+
+    updateConsole(){
+        $("#consoleOutputDiv").removeClass("hidden");
+
+        this.consoleOutput.title.text("Search Strategy: " + this.solutionDetails.strategy);
+        this.consoleOutput.nodesExpanded.text("Total Nodes Expanded: " + this.solutionDetails.nodesExpanded);
+        this.consoleOutput.maxNodes.text("Maximum Nodes In Memory: "+ this.solutionDetails.maxNodes);
+        this.consoleOutput.totalNodes.text("Total Nodes Generated: " + this.solutionDetails.totalNodes);
+        this.consoleOutput.solutionDepth.text("Solution Depth: " + this.solutionDetails.solutionDepth);
+    }
+
 
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
         let solution;
         clearInterval(movementManager.interval);
         graphicsManager.generateFromMatrix(this.startState.stateGrid);
+        this.resetSolutionDetails();
         switch(strat){
             case "DFS":
                 console.log("DFS");
@@ -138,6 +172,7 @@ class  SearchManager{
                 solution = this.AHS();
                 break;
         }
+        console.log(this.solutionDetails);
         if(solution){
             movementManager.playSolution(solution);
         }
@@ -145,6 +180,7 @@ class  SearchManager{
 
     // Depth First Search
     DFS(){
+        this.solutionDetails.strategy = "Depth First Search";
         let context = this;
         let rootNode = new GraphNode(this.startState,null,null,null,0);
         let fringe = [rootNode];
@@ -153,7 +189,11 @@ class  SearchManager{
 
         function expand(fringe){
             let node = fringe.pop();
-                        
+            
+            // number of nodes expanded (time complexity)
+            context.solutionDetails.nodesExpanded ++;
+
+
             let addToFringe = [];
             let auxNode;
             let auxState;
@@ -163,6 +203,9 @@ class  SearchManager{
                     auxState.move(directions[i]);
                     auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
                     addToFringe.push(auxNode);
+
+                    // total nodes generated
+                    context.solutionDetails.totalNodes++;
                 }
             }
 
@@ -170,13 +213,29 @@ class  SearchManager{
             for(let i in addToFringe){
                 fringe.push(addToFringe[i]);
             }
+
+            // find most nodes in memory at one time (space complexity)
+            context.solutionDetails.maxNodes = Math.max(context.solutionDetails.maxNodes,fringe.length);
+            
+            // current depth
+            context.solutionDetails.solutionDepth = node.depth;
+
+            context.updateConsole();
+
             console.log(fringe);
         }
 
         while(fringe.length!=0){
+            context.updateConsole();
             if(this.equalGrids(fringe[fringe.length-1].state.stateGrid,this.goalState.stateGrid)){
                 console.log(fringe[fringe.length-1]);
                 graphicsManager.generateFromMatrix(fringe[fringe.length-1].state.stateGrid);
+                
+                // depth of solution (optimality)
+                this.solutionDetails.solutionDepth = fringe[fringe.length-1].depth;
+                
+                
+
                 return fringe[fringe.length-1];
             }
             expand(fringe);
@@ -188,6 +247,7 @@ class  SearchManager{
 
     // Breadth First Search
     BFS(){
+        this.solutionDetails.strategy = "Breadth First Search";
         let context = this;
         let rootNode = new GraphNode(this.startState,null,null,null,0);
         let fringe = [rootNode];
@@ -196,6 +256,8 @@ class  SearchManager{
         function expand(fringe){
             let node = fringe.shift();
             
+            // number of nodes expanded (time complexity)
+            context.solutionDetails.nodesExpanded ++;
 
             
             let addToFringe = [];
@@ -207,19 +269,35 @@ class  SearchManager{
                     auxState.move(directions[i]);
                     auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
                     addToFringe.push(auxNode);
+
+                    // total nodes generated
+                    context.solutionDetails.totalNodes++;
+
                 }
             }
 
             for(let i in addToFringe){
                 fringe.push(addToFringe[i]);
             }
+
+            // find most nodes in memory (space complexity)
+            context.solutionDetails.maxNodes = Math.max(context.solutionDetails.maxNodes,fringe.length);
+            
+            // current depth
+            context.solutionDetails.solutionDepth = node.depth;
+
             console.log(fringe);
         }
 
         while(fringe.length!=0){
+            context.updateConsole();
             if(this.equalGrids(fringe[0].state.stateGrid,this.goalState.stateGrid)){
                 console.log(fringe[0]);
                 graphicsManager.generateFromMatrix(fringe[0].state.stateGrid);
+
+                // depth of solution (optimality)
+                this.solutionDetails.solutionDepth = fringe[0].depth;
+
                 return fringe[0];
             }
             expand(fringe);
@@ -233,6 +311,8 @@ class  SearchManager{
     IDS(){
         // DFS up to limit then limit++ and repeat
 
+        this.solutionDetails.strategy = "Iterative Deepening Search";
+
         let context = this;
         const rootNode = new GraphNode(this.startState,null,null,null,0);
         let fringe = [rootNode];
@@ -242,6 +322,9 @@ class  SearchManager{
 
         function expand(fringe,limit){
             let node = fringe.pop();
+
+            // number of nodes expanded (time complexity)
+            context.solutionDetails.nodesExpanded ++;
 
             let addToFringe = [];
             let auxNode;
@@ -253,6 +336,9 @@ class  SearchManager{
                         auxState.move(directions[i]);
                         auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
                         addToFringe.push(auxNode);
+
+                        // total nodes generated
+                        context.solutionDetails.totalNodes++;
                     }
                 }
                 for(let i in addToFringe){
@@ -260,7 +346,12 @@ class  SearchManager{
                 }
             }
 
-            // shuffle(addToFringe);
+            // find most nodes in memory (space complexity)
+            context.solutionDetails.maxNodes = Math.max(context.solutionDetails.maxNodes,fringe.length);
+            
+            // current depth
+            context.solutionDetails.solutionDepth = limit;
+
             console.log(limit);
             console.log(fringe);
         }
@@ -269,9 +360,14 @@ class  SearchManager{
 
 
             while(fringe.length!=0){
+                context.updateConsole();
                 if(context.equalGrids(fringe[fringe.length-1].state.stateGrid,context.goalState.stateGrid)){
                     console.log(fringe[fringe.length-1]);
                     graphicsManager.generateFromMatrix(fringe[fringe.length-1].state.stateGrid);
+                    
+                    // depth of solution (optimality)
+                    context.solutionDetails.solutionDepth = fringe[fringe.length-1].depth;
+
                     return fringe[fringe.length-1];
                 }
                 expand(fringe, limit);
@@ -284,6 +380,9 @@ class  SearchManager{
 
     // A* Heuristic Search
     AHS(){
+
+        this.solutionDetails.strategy = "A* Heuristic Search";
+
         let context = this;
         const rootNode = new GraphNode(this.startState,null,null,0,0);
         let fringe = [rootNode];
@@ -329,6 +428,9 @@ class  SearchManager{
         // successor function. first node in list will always be the least cost node
         function expand(){
             let node = fringe.shift();
+            
+            // number of nodes expanded (time complexity)
+            context.solutionDetails.nodesExpanded ++;
                         
             let addToFringe = [];
             let auxNode;
@@ -340,6 +442,10 @@ class  SearchManager{
                     auxNode = new GraphNode(auxState,node,directions[i],null,(node.depth + 1));
                     evaluateCost(auxNode);
                     addToFringe.push(auxNode);
+
+                    // total nodes generated
+                    context.solutionDetails.totalNodes++;
+
                 }
             }
 
@@ -347,13 +453,26 @@ class  SearchManager{
                 fringe.push(addToFringe[i]);
             }
             fringe.sort((a, b) => (a.pathCost > b.pathCost) ? 1 : -1);
+
+
+            // find most nodes in memory at one time (space complexity)
+            context.solutionDetails.maxNodes = Math.max(context.solutionDetails.maxNodes,fringe.length);
+
+            // current depth
+            context.solutionDetails.solutionDepth = node.depth;
+
             console.log(fringe);
         }
 
         while(fringe.length > 0){
+            context.updateConsole();
             if(this.equalGrids(fringe[0].state.stateGrid,this.goalState.stateGrid)){
                 console.log(fringe[0]);
                 graphicsManager.generateFromMatrix(fringe[0].state.stateGrid);
+
+                // depth of solution (optimality)
+                this.solutionDetails.solutionDepth = fringe[0].depth;
+
                 return fringe[0];
             }
             expand();
