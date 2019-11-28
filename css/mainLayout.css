@@ -142,7 +142,7 @@
     position: relative;
     
 }
-#agentBlock{
+.agentBlock{
     background-color: gray;
 }
 
@@ -160,7 +160,47 @@
     font-size: 260%;
 }
 
+.movableStateBlock{
+    background-color: teal;
+    overflow: hidden;
+    text-align: center;
 
+}
+.movableStateBlock > div{
+    position: absolute;
+    width: 100%;
+    /* height: 100%; */
+    top: 25%;
+    font-size: 260%;
+}
+#stateImageDiv{
+    float: right;
+    display: inline-flex;
+    margin-bottom: 20px;
+}
+#stateImageDiv > span{
+    margin-top: 15%;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+#startStateDiv{
+    height: 200px;
+    width: 200px;;
+}
+#startStateDiv > div{
+    height: 100%;
+    width: 100%;
+}
+
+#goalStateDiv{
+    height: 200px;
+    width: 200px;;
+}
+#goalStateDiv > div{
+    height: 100%;
+    width: 100%;
+}
 
 
 

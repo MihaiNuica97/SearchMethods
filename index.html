@@ -62,7 +62,7 @@
 
 
     <div id="buttonsDiv">
-
+        <span>Hint: click on the grid and use the arrow keys to control the agent block!</span>
         <br>
         <button id="saveStartStateBtn"onClick="searchManager.saveStartState()">Save Start State</button>
         <button id="saveGoalStateBtn"onClick="searchManager.saveGoalState()">Save Goal State</button>
@@ -79,13 +79,23 @@
             <input id="enableGraphicsCheck"  type="checkbox" checked>
             <span>Enable Graphics</span>
         </div>
-        <div id="controlsDiv">
+        <!-- <div id="controlsDiv">
                 <button id="moveLeft" onClick="movementManager.moveLeft();">Left</button>
                 <button id="moveRight"onClick="movementManager.moveRight();">Right</button>
                 <button id="moveUp"onClick="movementManager.moveUp();">Up</button>
                 <button id="moveDown"onClick="movementManager.moveDown();">Down</button>
+        </div> -->
+        <div id="stateImageDiv">
+                <span>Start State: </span>
+            <div id="startStateDiv">
+                <span>Start State</span>
+            </div>
+                <span>Goal State: </span>
+            <div id="goalStateDiv">
+                <span>Goal State</span>
+            </div>
         </div>
-        <div id="startGoalStateDiv" style="float: right;" ><span>Start State, Goal State</span></div>
+
     </div>
 
 

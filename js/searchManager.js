@@ -35,6 +35,26 @@ class  SearchManager{
         console.log("Saved Start State:");
         console.log(this.startState.stateGrid);
 
+
+        graphicsManager.generateFromMatrix(this.startState.stateGrid);
+        this.saveStateImage($("#startStateDiv"));
+    }
+
+    saveStateImage(targetDiv){
+        targetDiv.empty();
+        let gridClone = graphicsManager.grid.clone();
+
+        gridClone.children().each(function(index,element){
+            element.removeAttribute("id");
+            element.removeAttribute("row");
+            element.removeAttribute("col");
+            element.removeAttribute("title");
+            if(element.classList.contains("movableBlock")){
+                element.classList.remove("movableBlock");
+                element.classList.add("movableStateBlock");
+            }
+        });
+        gridClone.appendTo("#"+targetDiv.attr("id"));
     }
 
     saveGoalState(){
@@ -53,6 +73,10 @@ class  SearchManager{
         this.goalState = new State(this.goalState,this.gridSize,this.agentCoords);
         console.log("Saved Goal State From Graphics");
         console.log(this.goalState.stateGrid);
+
+        graphicsManager.generateFromMatrix(this.goalState.stateGrid);
+        this.saveStateImage($("#goalStateDiv"));
+        
     }
 
     findAgentBlock(grid){
@@ -98,6 +122,8 @@ class  SearchManager{
         });
         this.goalState = new State(newGrid,newGrid[0].length,null);
         console.log(this.goalState);
+        graphicsManager.generateFromMatrix(this.goalState.stateGrid);
+        this.saveStateImage($("#goalStateDiv"));
     }
 
     equalGrids(grid1, grid2){
@@ -148,6 +174,7 @@ class  SearchManager{
     }
 
 
+
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
         let solution;
@@ -176,6 +203,7 @@ class  SearchManager{
         if(solution){
             movementManager.playSolution(solution);
         }
+        solution = null;
     }
 
     // Depth First Search
