@@ -75,7 +75,7 @@
         </select>
         <button id="goBTN" onClick = "searchManager.chooseSearchStrategy();" >GO</button>
         <br>
-        <button id="playSolution" class="hidden" onclick="movementManager.playSolution(searchManager.solution);" >PLAY SOLUTION</button>
+        <button id="playSolution" class="hidden" onclick="graphicsManager.generateFromMatrix(searchManager.startState.stateGrid);movementManager.playSolution(searchManager.solution);" >PLAY SOLUTION</button>
         <br>
         <div id="enableGraphicsDiv">
             <input id="enableGraphicsCheck"  type="checkbox" checked>
@@ -129,6 +129,9 @@
                 </div>
                 <div id="consoleOutputSolutionDepthCon">
                     <span>Solution Depth: </span>
+                </div>
+                <div id="consoleOutputSolutionPathCon">
+                        <span>Solution Path: </span>
                 </div>
             </div>
 

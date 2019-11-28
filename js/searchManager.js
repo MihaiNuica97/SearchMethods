@@ -158,11 +158,12 @@ class  SearchManager{
             nodesExpanded: $('#consoleOutputNodesExpandedCon').children(0),
             maxNodes: $('#consoleOutputMaxNodesCon').children(0),
             totalNodes: $('#consoleOutputTotalNodesCon').children(0),
-            solutionDepth: $('#consoleOutputSolutionDepthCon').children(0)
+            solutionDepth: $('#consoleOutputSolutionDepthCon').children(0),
+            solutionPath: $("#consoleOutputSolutionPathCon").children(0)
         }
     }
 
-    updateConsole(){
+    updateConsole(showPath){
         $("#consoleOutputDiv").removeClass("hidden");
 
         this.consoleOutput.title.text("Search Strategy: " + this.solutionDetails.strategy);
@@ -170,6 +171,19 @@ class  SearchManager{
         this.consoleOutput.maxNodes.text("Maximum Nodes In Memory: "+ this.solutionDetails.maxNodes);
         this.consoleOutput.totalNodes.text("Total Nodes Generated: " + this.solutionDetails.totalNodes);
         this.consoleOutput.solutionDepth.text("Solution Depth: " + this.solutionDetails.solutionDepth);
+        
+        this.consoleOutput.solutionPath.addClass("hidden");
+        if(showPath){
+            this.consoleOutput.solutionPath.removeClass("hidden");
+            let textOutput = "Solution Path: ";
+            let path = movementManager.tracePath(this.solution);
+            path = path.reverse();
+            for(let i=0;i<(path.length-1);i++){
+                textOutput+= path[i]+", "
+            }
+            textOutput+=path[path.length-1];
+            this.consoleOutput.solutionPath.text(textOutput);
+        }
     }
 
 
@@ -201,6 +215,7 @@ class  SearchManager{
         console.log(this.solutionDetails);
         if(this.solution){
             $("#playSolution").removeClass("hidden");
+            this.updateConsole(true);
         }
     }
 

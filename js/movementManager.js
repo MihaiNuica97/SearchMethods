@@ -80,23 +80,26 @@ class MovementManager{
     },this.delayTime);
     }
 
+    tracePath(node){
+        let thisNode = {...node};
+        let thisPath = [];
+        while(thisNode.action != null){
+            thisPath.push(thisNode.action);
+            thisNode = thisNode.parentNode;
+        }
+        return thisPath;
+    }
 
     playSolution(finalNode){
         console.log("playing solution...");
         let path = [];
-        let myNode = finalNode
+        let myNode = {...finalNode}
         let context = this;
         // backtrack through parent nodes noting down action until reaching root node
-        while(myNode.action != null){
-            path.push(myNode.action);
-            myNode = myNode.parentNode;
-        }
+        path = this.tracePath(myNode,myNode);
 
         // reverse action array to get correct order
         path = path.reverse();
-
-        // set grid to state of root node
-        this.graphicsManager.generateFromMatrix(myNode.state.stateGrid);
 
         // for each action in array make corresponding move then wait for delay
         this.interval = setInterval(()=>{

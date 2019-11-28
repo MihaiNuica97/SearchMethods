@@ -180,6 +180,9 @@
 
 #consoleOutputDiv{
     margin: 10px;
+    max-width: 45%;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 #stateImageDiv{
