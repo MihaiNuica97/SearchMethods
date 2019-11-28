@@ -121,7 +121,6 @@ class  SearchManager{
             return arr.slice();
         });
         this.goalState = new State(newGrid,newGrid[0].length,null);
-        console.log(this.goalState);
         graphicsManager.generateFromMatrix(this.goalState.stateGrid);
         this.saveStateImage($("#goalStateDiv"));
     }
@@ -160,7 +159,6 @@ class  SearchManager{
             totalNodes: $('#consoleOutputTotalNodesCon').children(0),
             solutionDepth: $('#consoleOutputSolutionDepthCon').children(0)
         }
-        console.log(this.consoleOutput);
     }
 
     updateConsole(){

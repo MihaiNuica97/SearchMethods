@@ -1,6 +1,3 @@
-
-
-
 // source: https://stackoverflow.com/
 function nextCharacter(c) { 
   return String.fromCharCode(c.charCodeAt(0) + 1); 
@@ -98,20 +95,5 @@ function checkKey(e) {
     }
   }
 }
-
-
-
-console.log(graphicsManager);
-console.log(searchManager);
-
 searchManager.grabConsole();
 
-// async function tryin(){
-//   let i=3;
-//   while(i>1){
-//     await sleep(500);
-//     movementManager.moveLeft();
-//     i--;
-//   }
-// }
-// tryin();

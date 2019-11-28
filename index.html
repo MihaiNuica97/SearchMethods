@@ -15,7 +15,7 @@
 <div id="navbar">
 <ul>
     <li><a href="./index.html">Home</a></li>
-    <li><a href="./About.html">About</a></li>
+    <!-- <li><a href="./About.html">About</a></li> -->
 </ul>
 </div>
 
@@ -85,42 +85,51 @@
                 <button id="moveUp"onClick="movementManager.moveUp();">Up</button>
                 <button id="moveDown"onClick="movementManager.moveDown();">Down</button>
         </div> -->
-        <div id="stateImageDiv">
-                <span>Start State: </span>
-            <div id="startStateDiv">
-                <span>Start State</span>
-            </div>
-                <span>Goal State: </span>
-            <div id="goalStateDiv">
-                <span>Goal State</span>
-            </div>
-        </div>
+
 
     </div>
 
 
 
     <div id="outputDiv"style="float:right;">
-        <div id="consoleOutputDiv" class="hidden" style="float:left;">
-            <div id="consoleOpuputTitleCon">
-                <span>Search Strategy: </span>
-            </div>
-            <div id="consoleOutputNodesExpandedCon">
-                <span>Total Nodes Expanded: </span>
-            </div>
-            <div id="consoleOutputMaxNodesCon">
-                <span>Maximum Nodes In Memory: </span>
-            </div>
-            <div id="consoleOutputTotalNodesCon">
-                <span>Total Nodes Generated: </span>
-            </div>
-            <div id="consoleOutputSolutionDepthCon">
-                <span>Solution Depth: </span>
-            </div>
-        </div>
+
+
         <div id="graphOutputDiv"style="float:right;">
             <div id="gridOuterDiv"></div>
         </div>
+        <div id="stateImageDiv">
+            <div>
+                    <span>Start State: </span>
+                    <div id="startStateDiv">
+                        <span>Start State</span>
+                    </div>
+            </div>
+            <div>
+                    <span>Goal State: </span>
+                    <div id="goalStateDiv">
+                        <span>Goal State</span>
+                    </div>
+            </div>
+
+        </div>
+        <div id="consoleOutputDiv" class="hidden" style="float:left;">
+                <div id="consoleOpuputTitleCon">
+                    <span>Search Strategy: </span>
+                </div>
+                <div id="consoleOutputNodesExpandedCon">
+                    <span>Total Nodes Expanded: </span>
+                </div>
+                <div id="consoleOutputMaxNodesCon">
+                    <span>Maximum Nodes In Memory: </span>
+                </div>
+                <div id="consoleOutputTotalNodesCon">
+                    <span>Total Nodes Generated: </span>
+                </div>
+                <div id="consoleOutputSolutionDepthCon">
+                    <span>Solution Depth: </span>
+                </div>
+            </div>
+
     </div>
 </div>
 
