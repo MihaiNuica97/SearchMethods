@@ -91,6 +91,7 @@ class MovementManager{
     }
 
     playSolution(finalNode){
+        clearInterval(this.interval);
         console.log("playing solution...");
         let path = [];
         let myNode = {...finalNode}
