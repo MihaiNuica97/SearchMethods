@@ -1,4 +1,4 @@
-class  SearchManager{
+class SearchManager{
 
     constructor(){
         var gridSize;
@@ -12,8 +12,6 @@ class  SearchManager{
         var consoleOutput;
         var solution;
     }
-
-
 
     // INITIALIZATION
     saveStartState(){
@@ -126,67 +124,6 @@ class  SearchManager{
         this.saveStateImage($("#goalStateDiv"));
     }
 
-    equalGrids(grid1, grid2){
-        for(let i=0; i<grid1.length;i++){
-            for(let j=0;j<grid1.length;j++){
-                if(grid1[i][j] != 0 && grid1[i][j] != "*"){
-                    if(grid1[i][j] != grid2[i][j]){
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-
-
-
-    resetSolutionDetails(){
-        this.solutionDetails = {
-            strategy: "",
-            nodesExpanded: 0,
-            totalNodes: 1,
-            maxNodes: 0,
-            solutionDepth: 0,
-        };
-    }
-
-    grabConsole(){
-        this.consoleOutput = {
-            title: $('#consoleOpuputTitleCon').children(0),
-            nodesExpanded: $('#consoleOutputNodesExpandedCon').children(0),
-            maxNodes: $('#consoleOutputMaxNodesCon').children(0),
-            totalNodes: $('#consoleOutputTotalNodesCon').children(0),
-            solutionDepth: $('#consoleOutputSolutionDepthCon').children(0),
-            solutionPath: $("#consoleOutputSolutionPathCon").children(0)
-        }
-    }
-
-    updateConsole(showPath){
-        $("#consoleOutputDiv").removeClass("hidden");
-
-        this.consoleOutput.title.text("Search Strategy: " + this.solutionDetails.strategy);
-        this.consoleOutput.nodesExpanded.text("Total Nodes Expanded: " + this.solutionDetails.nodesExpanded);
-        this.consoleOutput.maxNodes.text("Maximum Nodes In Memory: "+ this.solutionDetails.maxNodes);
-        this.consoleOutput.totalNodes.text("Total Nodes Generated: " + this.solutionDetails.totalNodes);
-        this.consoleOutput.solutionDepth.text("Solution Depth: " + this.solutionDetails.solutionDepth);
-        
-        this.consoleOutput.solutionPath.addClass("hidden");
-        if(showPath){
-            this.consoleOutput.solutionPath.removeClass("hidden");
-            let textOutput = "Solution Path: ";
-            let path = movementManager.tracePath(this.solution);
-            path = path.reverse();
-            for(let i=0;i<(path.length-1);i++){
-                textOutput+= path[i]+", "
-            }
-            textOutput+=path[path.length-1];
-            this.consoleOutput.solutionPath.text(textOutput);
-        }
-    }
-
-
     // SEARCH STRATEGIES
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
@@ -263,6 +200,8 @@ class  SearchManager{
 
             context.updateConsole();
 
+            console.clear();
+            // console.log({...fringe});
             console.log(fringe);
         }
 
@@ -327,8 +266,9 @@ class  SearchManager{
             // current depth
             context.solutionDetails.solutionDepth = node.depth;
 
-            console.log(fringe);
-        }
+            console.clear();
+            // console.log({...fringe});
+            console.log(fringe);        }
 
         while(fringe.length!=0){
             context.updateConsole();
@@ -393,7 +333,9 @@ class  SearchManager{
             // current depth
             context.solutionDetails.solutionDepth = limit;
 
+            console.clear();
             console.log(limit);
+            // console.log({...fringe});
             console.log(fringe);
         }
         function dLSearch(limit){
@@ -433,7 +375,6 @@ class  SearchManager{
         // find coords of all movable blocks in goal state for future reference
         function findGoalBlockCoords(){
             let goalGrid = context.goalState.stateGrid;
-            console.log(goalGrid);
             for(let i in goalGrid){
                 for(let j in goalGrid[i]){
                     if(goalGrid[i][j] != 0 && goalGrid[i][j] != "*"){
@@ -502,6 +443,8 @@ class  SearchManager{
             // current depth
             context.solutionDetails.solutionDepth = node.depth;
 
+            console.clear();
+            // console.log({...fringe});
             console.log(fringe);
         }
 
@@ -520,4 +463,64 @@ class  SearchManager{
         }
         return false
     }
+
+
+    // UTILITY FUNCTIONS
+    equalGrids(grid1, grid2){
+        for(let i=0; i<grid1.length;i++){
+            for(let j=0;j<grid1.length;j++){
+                if(grid1[i][j] != 0 && grid1[i][j] != "*"){
+                    if(grid1[i][j] != grid2[i][j]){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    resetSolutionDetails(){
+        this.solutionDetails = {
+            strategy: "",
+            nodesExpanded: 0,
+            totalNodes: 1,
+            maxNodes: 0,
+            solutionDepth: 0,
+        };
+    }
+
+    grabConsole(){
+        this.consoleOutput = {
+            title: $('#consoleOpuputTitleCon').children(0),
+            nodesExpanded: $('#consoleOutputNodesExpandedCon').children(0),
+            maxNodes: $('#consoleOutputMaxNodesCon').children(0),
+            totalNodes: $('#consoleOutputTotalNodesCon').children(0),
+            solutionDepth: $('#consoleOutputSolutionDepthCon').children(0),
+            solutionPath: $("#consoleOutputSolutionPathCon").children(0)
+        }
+    }
+
+    updateConsole(showPath){
+        $("#consoleOutputDiv").removeClass("hidden");
+
+        this.consoleOutput.title.text("Search Strategy: " + this.solutionDetails.strategy);
+        this.consoleOutput.nodesExpanded.text("Total Nodes Expanded: " + this.solutionDetails.nodesExpanded);
+        this.consoleOutput.maxNodes.text("Maximum Nodes In Memory: "+ this.solutionDetails.maxNodes);
+        this.consoleOutput.totalNodes.text("Total Nodes Generated: " + this.solutionDetails.totalNodes);
+        this.consoleOutput.solutionDepth.text("Solution Depth: " + this.solutionDetails.solutionDepth);
+        
+        this.consoleOutput.solutionPath.addClass("hidden");
+        if(showPath){
+            this.consoleOutput.solutionPath.removeClass("hidden");
+            let textOutput = "Solution Path: ";
+            let path = movementManager.tracePath(this.solution);
+            path = path.reverse();
+            for(let i=0;i<(path.length-1);i++){
+                textOutput+= path[i]+", "
+            }
+            textOutput+=path[path.length-1];
+            this.consoleOutput.solutionPath.text(textOutput);
+        }
+    }
+
 }

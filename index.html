@@ -24,7 +24,7 @@
     <div id="optionsDiv">
         <div id="gridSizeDiv">
             <span>Grid Size: </span>
-            <input type="number" value="3" max="6" id="gridSizeInput">
+            <input type="number" value="4" max="6" id="gridSizeInput">
             <button id="generateGridBtn" onClick="graphicsManager.generateGrid();
             $('#generateBlocksBtn').removeClass('hidden');
             $('#gridBlocksOptionDiv').removeClass('hidden');">Change Grid Size</button>
@@ -32,40 +32,44 @@
         </div>
         <div id="gridBlocksInputDiv">
             <span>Grid Blocks: </span>
-            <input type="number" value="2" max="6" id="blocksNoInput">
+            <input type="number" value="3" max="6" id="blocksNoInput">
             <button id="generateBlocksBtn" onClick="graphicsManager.generateBlocks()">Generate Blocks</button>
         </div>
         <div id="gridBlocksOptionDiv">
                 <div class="blockOption">
                     <span class="blockTitle" title="A">A: </span>
                     <span>X:</span>
-                    <input class="blockCoordX" value="3" type="number">
+                    <input class="blockCoordX" value="4" type="number">
                     <span>Y:</span>
                     <input class="blockCoordY" value="1" type="number">
                 </div>
                 <div class="blockOption">
                     <span class="blockTitle" title="B">B: </span>
                     <span>X:</span>
-                    <input class="blockCoordX" value="3" type="number">
+                    <input class="blockCoordX" value="4" type="number">
                     <span>Y:</span>
                     <input class="blockCoordY" value="2" type="number">
                 </div>
-                <!-- <div class="blockOption">
+                <div class="blockOption">
                     <span class="blockTitle" title="C">C: </span>
                     <span>X:</span>
                     <input class="blockCoordX" value="4" type="number">
                     <span>Y:</span>
                     <input class="blockCoordY" value="3"type="number">
-                </div> -->
+                </div>
         </div>
     </div>
 
 
     <div id="buttonsDiv">
-        <span>Hint: click on the grid and use the arrow keys to control the agent block!</span>
+        <span>Hint: click on the grid and use the arrow keys to control the agent block</span>
+        <br>
+        <span>Then click one of the save state buttons!</span>
         <br>
         <button id="saveStartStateBtn"onClick="searchManager.saveStartState()">Save Start State</button>
         <button id="saveGoalStateBtn"onClick="searchManager.saveGoalState()">Save Goal State</button>
+        <br>
+        <span>Search Strategy: </span>
         <br>
         <select name="Search Strategies" id="searchDropdown">
             <option value="DFS">Depth First</option>
@@ -77,7 +81,7 @@
         <br>
         <button id="playSolution" class="hidden" onclick="graphicsManager.generateFromMatrix(searchManager.startState.stateGrid);movementManager.playSolution(searchManager.solution);" >PLAY SOLUTION</button>
         <br>
-        <div id="enableGraphicsDiv">
+        <div id="enableGraphicsDiv" class="hidden" >
             <input id="enableGraphicsCheck"  type="checkbox" checked>
             <span>Enable Graphics</span>
         </div>

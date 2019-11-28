@@ -50,22 +50,41 @@
 
 /***************************** OPTIONS *****************************/
 #optionsDiv{
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: auto;
     grid-template-columns: auto;
+    -ms-grid-rows: auto auto;
     grid-template-rows: auto auto;
     background-color: lightgray;
     padding: 10px;
 }
+#optionsDiv > *:nth-child(1){
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+}
+#optionsDiv > *:nth-child(2){
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+}
 #gridSizeDiv{
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
 }
 #gridBlocksInputDiv{
+    -ms-grid-column: 1;
     grid-column: 1;
 }
 #gridBlocksOptionDiv{
+    -ms-grid-column: 2;
     grid-column: 2;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
     grid-row: 1 / span 2;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 50% 50%;
     grid-template-columns: 50% 50%;
 }
 .blockOption{
@@ -82,40 +101,94 @@
 /***************************** CONTROLS *****************************/
 
 #controlsDiv{
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: auto auto;
     grid-template-columns: auto auto;
+    -ms-grid-rows: auto auto auto;
     grid-template-rows: auto auto auto;
 
     width: 200px;
 
 }
+
+#controlsDiv > *:nth-child(1){
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+
+}
+
+#controlsDiv > *:nth-child(2){
+    -ms-grid-row: 1;
+    -ms-grid-column: 2;
+
+}
+
+#controlsDiv > *:nth-child(3){
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+
+}
+
+#controlsDiv > *:nth-child(4){
+    -ms-grid-row: 2;
+    -ms-grid-column: 2;
+
+}
+
+#controlsDiv > *:nth-child(5){
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+
+}
+
+#controlsDiv > *:nth-child(6){
+    -ms-grid-row: 3;
+    -ms-grid-column: 2;
+
+}
 #moveUp{
+    -ms-grid-row: 1;
     grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
     width: 50px;
     height: 30px;
-    justify-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
 }
 #moveLeft{
+    -ms-grid-row: 2;
     grid-row: 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
     grid-column: 1 / span 1;
     width: 50px;
     height: 30px;
-    justify-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
 }
 #moveRight{
+    -ms-grid-row: 2;
     grid-row: 2;
+    -ms-grid-column: 2;
     grid-column: 2;
     width: 50px;
     height: 30px;
-    justify-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
 }
 #moveDown{
+    -ms-grid-row: 3;
     grid-row: 3;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
     width: 50px;
     height: 30px;
-    justify-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
 }
 
 
@@ -187,7 +260,9 @@
 
 #stateImageDiv{
     /* float: right; */
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: auto auto;
     grid-template-columns: auto auto;
     margin-bottom: 20px;
     margin-top: 20px;

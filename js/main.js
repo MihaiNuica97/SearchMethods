@@ -2,6 +2,7 @@
 function nextCharacter(c) { 
   return String.fromCharCode(c.charCodeAt(0) + 1); 
 }
+
 // source: https://stackoverflow.com/ 
 function Create2DArray(rows) {
   var arr = [];
@@ -47,22 +48,26 @@ let searchManager =  new SearchManager();
 searchManager.saveStartState();
 searchManager.saveGoalState();
 
-let defaultGrid = [[0,"A",0],
-            [0,"B",0],
-            [0,0,"*"]];
+let defaultGrid = 
+[[0,0,0,0],
+[0,"A",0,0],
+[0,"B",0,0],
+[0,"C",0,"*"]];
 searchManager.goalStateFromGrid(defaultGrid);
 
-defaultGrid = [[0,0,0],
-            [0,0,0],
-            ["A","B","*"]];
+defaultGrid = 
+[[0,0,0,0],
+[0,0,0,0],
+[0,0,0,0],
+["A","B","C","*"]];
 
-graphicsManager.generateFromMatrix(defaultGrid);
+
 
 
 
 let movementManager = new MovementManager(graphicsManager,searchManager);
 searchManager.movementManager = movementManager;
-
+graphicsManager.generateFromMatrix(defaultGrid);
 // event handler for graphics checkbox
 $('#enableGraphicsCheck').change(function(){
   movementManager.graphicsEnabled = this.checked;
