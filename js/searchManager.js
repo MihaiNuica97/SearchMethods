@@ -10,6 +10,7 @@ class  SearchManager{
         var movementManager;
         var solutionDetails;
         var consoleOutput;
+        var solution;
     }
 
 
@@ -172,36 +173,35 @@ class  SearchManager{
     }
 
 
-
+    // SEARCH STRATEGIES
     chooseSearchStrategy(){
         let strat = $('#searchDropdown').val();
-        let solution;
+        $("#playSolution").addClass("hidden");
         clearInterval(movementManager.interval);
         graphicsManager.generateFromMatrix(this.startState.stateGrid);
         this.resetSolutionDetails();
         switch(strat){
             case "DFS":
                 console.log("DFS");
-                solution = this.DFS();
+                this.solution = this.DFS();
                 break;
             case "BFS":
                 console.log("BFS");
-                solution = this.BFS();
+                this.solution = this.BFS();
                 break;
             case "IDS":
                 console.log("IDS");
-                solution = this.IDS();
+                this.solution = this.IDS();
                 break;
             case "AHS":
                 console.log("AHS")
-                solution = this.AHS();
+                this.solution = this.AHS();
                 break;
         }
         console.log(this.solutionDetails);
-        if(solution){
-            movementManager.playSolution(solution);
+        if(this.solution){
+            $("#playSolution").removeClass("hidden");
         }
-        solution = null;
     }
 
     // Depth First Search
@@ -498,7 +498,7 @@ class  SearchManager{
 
                 // depth of solution (optimality)
                 this.solutionDetails.solutionDepth = fringe[0].depth;
-
+                this.updateConsole();
                 return fringe[0];
             }
             expand();
